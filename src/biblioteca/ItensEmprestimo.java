@@ -4,15 +4,6 @@ public class ItensEmprestimo{
     private int codigoitem, codigoemprestimo, codigolivro, codigoperiodico;
     private String datadevolucao;
 
-    public ItensEmprestimo(){
-        super();
-        this.codigoitem = 0;
-        this.codigoemprestimo = 0;
-        this.codigolivro = 0;
-        this.codigoperiodico = 0;
-        this.datadevolucao = "";
-    }
-
     public ItensEmprestimo(int codigoitem, int codigoemprestimo, int codigolivro, int codigoperiodico, String datadevolucao){
         super();
         this.codigoitem = codigoitem;

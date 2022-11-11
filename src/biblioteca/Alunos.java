@@ -3,18 +3,6 @@ package biblioteca;
 public class Alunos {
     private int matricula;
     private String nome, endereco, curso, data, multa;
-    
-
-    public Alunos() {
-        super();
-        this.matricula = 0;
-        this.nome = "";
-        this.endereco = "";
-        this.curso = "";
-        this.data = "";
-        this.multa = "";
-
-    }
 
     public Alunos(int matricula, String nome, String endereco, String curso, String data, String multa) {
         super();

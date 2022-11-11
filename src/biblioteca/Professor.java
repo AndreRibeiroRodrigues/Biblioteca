@@ -5,14 +5,6 @@ public class Professor {
 	private int matricula;
 	private String nome,endereco,setor,data;
 
-	public Professor() {
-		super();
-		this.matricula = 0;
-		this.nome = "";
-		this.endereco = "";
-		this.setor = "";
-		this.data = "";
-	}
 	public Professor(int matricula, String nome, String endereco, String setor, String data) {
 		super();
 		this.matricula = matricula;
@@ -53,7 +45,7 @@ public class Professor {
 	}
 	@Override
 	public String toString() {
-		return  matricula + "," + nome + "," + endereco + "," + setor
-				+ "," + data;
+		return matricula + "," + nome + "," + endereco + "," + setor + "," + data;
 	}
+	
 }
