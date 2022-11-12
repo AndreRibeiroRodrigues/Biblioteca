@@ -1,4 +1,4 @@
-package biblioteca;
+package entities;
 
 public class emprestimo {
 	int codigo, matriculaclientes, matricula, funcionario;

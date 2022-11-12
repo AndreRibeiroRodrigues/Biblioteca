@@ -1,4 +1,4 @@
-package biblioteca;
+package entities;
 
 public class ItensEmprestimo{
     private int codigoitem, codigoemprestimo, codigolivro, codigoperiodico;

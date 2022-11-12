@@ -1,4 +1,4 @@
-package biblioteca;
+package entities;
 
 public class Livros {
 	int codigo, issn;
