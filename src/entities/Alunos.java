@@ -2,20 +2,22 @@ package entities;
 
 public class Alunos {
     private int matricula;
-    private String nome, endereco, curso, data, multa;
+    private String nome, endereco, curso, data;
+    private double multa;
 
-    public Alunos(int matricula, String nome, String endereco, String curso, String data, String multa) {
-        super();
-        this.matricula = 0;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.curso = curso;
-        this.data = data;
-        this.multa = multa;
-
-    }
     
-    public int getMatricula() {
+    
+    public Alunos(int matricula, String nome, String endereco, String curso, String data, Double multa) {
+		super();
+		this.matricula = matricula;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.curso = curso;
+		this.data = data;
+		this.multa = multa;
+	}
+
+	public int getMatricula() {
         return matricula;
     }
 
@@ -54,10 +56,10 @@ public class Alunos {
     public void setData(String data) {
         this.data = data;
     }
-    public String getMulta(){
+    public double getMulta(){
         return multa;
     }
-    public void setMulta(String multa){
+    public void setMulta(double multa){
         this.multa = multa;
     }
     @Override
