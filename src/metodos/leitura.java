@@ -9,7 +9,7 @@ import java.util.List;
 import entities.Alunos;
 
 public class leitura {
-	public static void main(String[] args) {
+	public static void Leitura() {
 		String path = "C:\\GitHub\\Biblioteca\\CSV\\Aluno.txt";
 		
 		List<Alunos> list = new ArrayList<Alunos>();
