@@ -6,7 +6,10 @@ import metodos.Relatório;
 
 public class Biblioteca {
 	public static void main(String[] args) {
+		inicio();
+	}
 
+	public static void inicio() {
 		int escolha;
 
 		Scanner sc = new Scanner(System.in);
@@ -28,16 +31,12 @@ public class Biblioteca {
 		case 2:
 			cr.cadastroUsuario();
 		case 3:
-			em.Emprestimo();
+			em.EmprestimoLivro();
 		case 4:
 			re.Relatorio();
 		case 5:
 			System.out.println("Voce saiu");
-//		default:
-//			System.out.println("Escolha invalida o programa crashou");
-//			System.out.println("*-*");
 		}
 		sc.close();
 	}
-	
 }

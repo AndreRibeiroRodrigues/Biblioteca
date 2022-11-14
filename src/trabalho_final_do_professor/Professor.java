@@ -1,4 +1,4 @@
-package trabalho_final;
+package trabalho_final_do_professor;
 //<matrícula>;<nome>;<endereço>;<data-ingresso>;<setor>
 public class Professor{
 	private int matricula;

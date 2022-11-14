@@ -8,12 +8,12 @@ public class Livros {
 			String anopublicação) {
 		super();
 		this.codigo = codigo;
-		this.issn = issn;
 		this.autor = autor;
 		this.titulo = titulo;
 		this.editora = editora;
 		this.tipo = tipo;
 		this.anopublicação = anopublicação;
+		this.issn = issn;
 	}
 
 	public int getCodigo() {

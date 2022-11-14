@@ -1,4 +1,4 @@
-package trabalho_final;
+package trabalho_final_do_professor;
 
 import java.io.IOException;
 import java.util.Scanner;

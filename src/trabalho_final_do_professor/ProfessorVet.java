@@ -1,4 +1,4 @@
-package trabalho_final;
+package trabalho_final_do_professor;
 
 import java.io.FileWriter;
 import java.io.IOException;
