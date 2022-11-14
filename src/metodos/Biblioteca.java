@@ -1,8 +1,5 @@
+package metodos;
 import java.util.Scanner;
-
-import metodos.Cadastrar;
-import metodos.Emprestimo;
-import metodos.Relatório;
 
 public class Biblioteca {
 	public static void main(String[] args) {

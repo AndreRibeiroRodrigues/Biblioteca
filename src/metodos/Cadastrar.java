@@ -43,18 +43,18 @@ public class Cadastrar {
 			System.out.println(anopublicação);
 			System.out.println("Digite o issn:");
 			issn = sc.nextInt();
-			
-			
+
 //			escolha de cadastrar novamente
 			System.out.println("Deseja cadastrar mais um iten?");
 			System.out.println("[S] Sim [N] Não");
 			es = sc.next();
-			while (!es.equalsIgnoreCase("s") || es.equalsIgnoreCase("n")) {
+			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
 				System.out.println("valor Invalido");
 				System.out.println("Digite novamente");
 				es = sc.next();
 			}
 		} while (es.equalsIgnoreCase("s"));
+		Biblioteca.inicio();
 	}
 
 	public void cadastroUsuario() {
