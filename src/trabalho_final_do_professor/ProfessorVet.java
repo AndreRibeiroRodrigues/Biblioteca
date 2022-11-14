@@ -35,22 +35,27 @@ public class ProfessorVet {
 	public void cadastrarProfessores()throws IOException{
 		String entrada, linha="";
 		Professor professor = new Professor();
+		
 		System.out.printf("Informe a matrícula do professor:\n");
 		entrada = ler.nextLine();
 		linha += entrada+";";
 		professor.setMatricula(Integer.parseInt(entrada));
+		
 		System.out.printf("Informe o nome do professor:\n");
 		entrada = ler.nextLine();
 		linha += entrada+";";
 		professor.setNome(entrada);
+		
 		System.out.printf("Informe o endereço do professor:\n");
 		entrada = ler.nextLine();
 		linha += entrada+";";
 		professor.setEndereco(entrada);
+		
 		System.out.printf("\nInforme a data de ingresso do professor: ");
 		entrada = ler.nextLine();
 		linha += entrada+";";
 		professor.setDataIngresso(entrada);
+		
 		System.out.printf("Informe o setor do professor: ");
 		entrada = ler.nextLine();
 		linha += entrada;

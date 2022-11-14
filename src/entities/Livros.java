@@ -1,18 +1,18 @@
 package entities;
 
 public class Livros {
-	int codigo, issn;
-	String autor, titulo, editora, tipo, anopublicação;
-	
-	public Livros(int codigo, int issn, String autor, String titulo, String editora, String tipo,
-			String anopublicação) {
+	private int codigo, issn;
+	private String autor, titulo, editora, anopublicacao;
+	private char tipo;
+
+	public Livros(int codigo, String autor, String titulo, String editora,char tipo,  String anopublicacao, int issn) {
 		super();
 		this.codigo = codigo;
 		this.autor = autor;
 		this.titulo = titulo;
 		this.editora = editora;
 		this.tipo = tipo;
-		this.anopublicação = anopublicação;
+		this.anopublicacao = anopublicacao;
 		this.issn = issn;
 	}
 
@@ -56,26 +56,25 @@ public class Livros {
 		this.editora = editora;
 	}
 
-	public String getTipo() {
+	public String getAnopublicacao() {
+		return anopublicacao;
+	}
+
+	public void setAnopublicacao(String anopublicacao) {
+		this.anopublicacao = anopublicacao;
+	}
+
+	public char getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(char tipo) {
 		this.tipo = tipo;
 	}
 
-	public String getAnopublicação() {
-		return anopublicação;
-	}
-
-	public void setAnopublicação(String anopublicação) {
-		this.anopublicação = anopublicação;
-	}
-	
 	@Override
 	public String toString() {
-		return codigo + "," + autor + "," + titulo + "," + editora + "," + tipo + "," + anopublicação + "," + issn;
+		return codigo + "," + autor + "," + titulo + "," + editora + "," + tipo + "," + anopublicacao + "," + issn;
 	}
-	
-	
+
 }

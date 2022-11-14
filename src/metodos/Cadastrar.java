@@ -1,25 +1,37 @@
 package metodos;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
+
+import entities.Livros;
 
 public class Cadastrar {
 
 	public Scanner sc = new Scanner(System.in);
-	private int issn, dia, mes, ano;
-	private String autor, titulo, editora, anopublicação, es;
-	private char tipo;
 
 	public void cadastroItem() {
+		String path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Livros.txt";
+		FileWriter adicionar;
+
+		int issnlivro, dia, mes, ano;
+		String autorlivro, titulolivro, editoralivro, anopublicacaolivro, es;
+		char tipolivro;
+		int codigolivro = 0;
+
 		do {
 			System.out.println("Voce iniciou o cadastro de item");
 			System.out.println("Digite o nome do autor:");
-			autor = sc.next();
+			autorlivro = sc.next();
+
 			System.out.println("Digite o titulo:");
-			titulo = sc.next();
+			titulolivro = sc.next();
 			System.out.println("Digite a editora:");
-			editora = sc.next();
+			editoralivro = sc.next();
 			System.out.println("Digite o tipo [L] livro [P] periodico:");
-			tipo = sc.next().charAt(0);
+			tipolivro = sc.next().charAt(0);
 			System.out.println("Digite o ano de publicação:");
 			System.out.println("Digite o dia:");
 			dia = sc.nextInt();
@@ -39,12 +51,37 @@ public class Cadastrar {
 				System.out.println("Valor digitado invalido");
 				ano = sc.nextInt();
 			}
-			anopublicação = dia + "/" + mes + "/" + ano;
-			System.out.println(anopublicação);
+			anopublicacaolivro = dia + "/" + mes + "/" + ano;
 			System.out.println("Digite o issn:");
-			issn = sc.nextInt();
+			issnlivro = sc.nextInt();
 
-//			escolha de cadastrar novamente
+			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+//				Gerar o codigo unico;
+				String line = br.readLine();
+				while (line != null) {
+
+					codigolivro++;
+					line = br.readLine();
+					System.out.println(codigolivro);
+
+				}
+				Livros li = new Livros(codigolivro, autorlivro, titulolivro, editoralivro, tipolivro,
+						anopublicacaolivro, issnlivro);
+				adicionar = new FileWriter(path);
+
+				if (line == null) {
+					
+					adicionar.write("\n" + li.toString());
+					adicionar.close();
+				}
+
+			}
+
+			catch (IOException e) {
+				System.out.println("Error: " + e.getMessage());
+			}
+
+//			escolha de cadastrar novamente;
 			System.out.println("Deseja cadastrar mais um iten?");
 			System.out.println("[S] Sim [N] Não");
 			es = sc.next();
