@@ -14,7 +14,7 @@ public class Cadastrar {
 
 	public void cadastroItem() {
 		String path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Livros.txt";
-		FileWriter adicionar;
+		
 
 		int issnlivro, dia, mes, ano;
 		String autorlivro, titulolivro, editoralivro, anopublicacaolivro, es;
@@ -25,13 +25,13 @@ public class Cadastrar {
 			System.out.println("Voce iniciou o cadastro de item");
 			System.out.println("Digite o nome do autor:");
 			autorlivro = sc.next();
-
 			System.out.println("Digite o titulo:");
 			titulolivro = sc.next();
 			System.out.println("Digite a editora:");
 			editoralivro = sc.next();
 			System.out.println("Digite o tipo [L] livro [P] periodico:");
 			tipolivro = sc.next().charAt(0);
+			Character.toUpperCase(tipolivro);
 			System.out.println("Digite o ano de publicação:");
 			System.out.println("Digite o dia:");
 			dia = sc.nextInt();
@@ -54,6 +54,7 @@ public class Cadastrar {
 			anopublicacaolivro = dia + "/" + mes + "/" + ano;
 			System.out.println("Digite o issn:");
 			issnlivro = sc.nextInt();
+			while(issnlivro > 99999999 || issnlivro < 10000000)
 
 			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 //				Gerar o codigo unico;
@@ -62,16 +63,15 @@ public class Cadastrar {
 
 					codigolivro++;
 					line = br.readLine();
-					System.out.println(codigolivro);
 
 				}
 				Livros li = new Livros(codigolivro, autorlivro, titulolivro, editoralivro, tipolivro,
 						anopublicacaolivro, issnlivro);
-				adicionar = new FileWriter(path);
+				FileWriter adicionar = new FileWriter(path, true);
 
 				if (line == null) {
 					
-					adicionar.write("\n" + li.toString());
+					adicionar.append(li.toString() + "\n");
 					adicionar.close();
 				}
 
