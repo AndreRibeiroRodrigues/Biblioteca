@@ -16,9 +16,8 @@ public class Cadastrar {
 	public void cadastroItem() {
 		String path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
 
-		int issnlivro, dia, mes, ano;
+		int issnlivro, ano;
 		String autorlivro, titulolivro, editoralivro, es;
-		int ano1;
 		char tipolivro;
 		int codigolivro = 1;
 
@@ -39,10 +38,10 @@ public class Cadastrar {
 			Character.toUpperCase(tipolivro);
 
 			System.out.println("Digite o ano de publicação:");
-			ano1 = sc.nextInt();
-			while (ano1 < 1900 || ano1 > 2030) {
+			ano = sc.nextInt();
+			while (ano < 1900 || ano > 2030) {
 				System.out.println("Valor digitado invalido \nDigite novamente");
-				ano1 = sc.nextInt();
+				ano = sc.nextInt();
 			}
 			
 			System.out.println("Digite o issn:");
@@ -63,7 +62,7 @@ public class Cadastrar {
 
 				}
 				Livros li = new Livros(codigolivro, autorlivro, titulolivro, editoralivro, tipolivro,
-						ano1, issnlivro);
+						ano, issnlivro);
 
 				FileWriter adicionar = new FileWriter(path, true);
 				PrintWriter pw = new PrintWriter(adicionar);
