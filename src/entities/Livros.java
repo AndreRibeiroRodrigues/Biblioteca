@@ -2,10 +2,11 @@ package entities;
 
 public class Livros {
 	private int codigo, issn;
-	private String autor, titulo, editora, anopublicacao;
+	private String autor, titulo, editora;
+	int anopublicacao;
 	private char tipo;
 
-	public Livros(int codigo, String autor, String titulo, String editora,char tipo,  String anopublicacao, int issn) {
+	public Livros(int codigo, String autor, String titulo, String editora,char tipo,  int anopublicacao, int issn) {
 		super();
 		this.codigo = codigo;
 		this.autor = autor;
@@ -56,11 +57,11 @@ public class Livros {
 		this.editora = editora;
 	}
 
-	public String getAnopublicacao() {
+	public int getAnopublicacao() {
 		return anopublicacao;
 	}
 
-	public void setAnopublicacao(String anopublicacao) {
+	public void setAnopublicacao(int anopublicacao) {
 		this.anopublicacao = anopublicacao;
 	}
 

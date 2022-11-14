@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import entities.Livros;
@@ -13,48 +14,44 @@ public class Cadastrar {
 	public Scanner sc = new Scanner(System.in);
 
 	public void cadastroItem() {
-		String path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Livros.txt";
-		
+		String path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
 
 		int issnlivro, dia, mes, ano;
-		String autorlivro, titulolivro, editoralivro, anopublicacaolivro, es;
+		String autorlivro, titulolivro, editoralivro, es;
+		int ano1;
 		char tipolivro;
-		int codigolivro = 0;
+		int codigolivro = 1;
 
 		do {
 			System.out.println("Voce iniciou o cadastro de item");
 			System.out.println("Digite o nome do autor:");
 			autorlivro = sc.next();
+
 			System.out.println("Digite o titulo:");
-			titulolivro = sc.next();
+			sc.nextLine();
+			titulolivro = sc.nextLine();
+
 			System.out.println("Digite a editora:");
-			editoralivro = sc.next();
+			editoralivro = sc.nextLine();
+
 			System.out.println("Digite o tipo [L] livro [P] periodico:");
 			tipolivro = sc.next().charAt(0);
 			Character.toUpperCase(tipolivro);
+
 			System.out.println("Digite o ano de publicação:");
-			System.out.println("Digite o dia:");
-			dia = sc.nextInt();
-			while (dia < 1 || dia > 31) {
-				System.out.println("Valor digitado invalido");
-				dia = sc.nextInt();
+			ano1 = sc.nextInt();
+			while (ano1 < 1900 || ano1 > 2030) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				ano1 = sc.nextInt();
 			}
-			System.out.println("Digite o Mês");
-			mes = sc.nextInt();
-			while (mes < 1 || mes > 12) {
-				System.out.println("Valor digitado invalido");
-				mes = sc.nextInt();
-			}
-			System.out.println("Digite o Ano");
-			ano = sc.nextInt();
-			while (ano < 1900 || ano > 2030) {
-				System.out.println("Valor digitado invalido");
-				ano = sc.nextInt();
-			}
-			anopublicacaolivro = dia + "/" + mes + "/" + ano;
+			
 			System.out.println("Digite o issn:");
 			issnlivro = sc.nextInt();
-			while(issnlivro > 99999999 || issnlivro < 10000000)
+			while (issnlivro > 99999999 || issnlivro < 10000000) {
+				System.out.println("Valor invalido");
+				System.out.println("Digite novamente");
+				issnlivro = sc.nextInt();
+			}
 
 			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 //				Gerar o codigo unico;
@@ -66,14 +63,14 @@ public class Cadastrar {
 
 				}
 				Livros li = new Livros(codigolivro, autorlivro, titulolivro, editoralivro, tipolivro,
-						anopublicacaolivro, issnlivro);
-				FileWriter adicionar = new FileWriter(path, true);
+						ano1, issnlivro);
 
-				if (line == null) {
-					
-					adicionar.append(li.toString() + "\n");
-					adicionar.close();
-				}
+				FileWriter adicionar = new FileWriter(path, true);
+				PrintWriter pw = new PrintWriter(adicionar);
+
+				pw.println(li.toString());
+				pw.flush();
+				pw.close();
 
 			}
 
