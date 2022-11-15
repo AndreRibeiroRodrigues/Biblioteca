@@ -16,53 +16,58 @@ public class Cadastrar {
 	public void cadastroItem() {
 		String path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
 
-		int issnlivro, ano;
-		String autorlivro, titulolivro, editoralivro, es;
-		char tipolivro;
-		int codigolivro = 1;
+		Livros li = new Livros();
+		
+		int issn, ano;
+		String autor, titulo, editora, es;
+		char tipo;
+		int codigo = 1;
 
 		do {
 			System.out.println("Voce iniciou o cadastro de item");
 			System.out.println("Digite o nome do autor:");
-			autorlivro = sc.next();
-
+			autor = sc.nextLine();
+			li.setAutor(autor);
+			
 			System.out.println("Digite o titulo:");
-			sc.nextLine();
-			titulolivro = sc.nextLine();
-
+			titulo = sc.nextLine();
+			li.setTitulo(titulo);
+			
 			System.out.println("Digite a editora:");
-			editoralivro = sc.nextLine();
-
+			editora = sc.nextLine();
+			li.setEditora(editora);
+			
 			System.out.println("Digite o tipo [L] livro [P] periodico:");
-			tipolivro = sc.next().charAt(0);
-			Character.toUpperCase(tipolivro);
-
+			tipo = sc.next().toUpperCase().charAt(0);
+			li.setTipo(tipo);
+			System.out.println(li.getTipo());
 			System.out.println("Digite o ano de publicação:");
 			ano = sc.nextInt();
 			while (ano < 1900 || ano > 2030) {
 				System.out.println("Valor digitado invalido \nDigite novamente");
 				ano = sc.nextInt();
 			}
+			li.setAnopublicacao(ano);
 			
 			System.out.println("Digite o issn:");
-			issnlivro = sc.nextInt();
-			while (issnlivro > 99999999 || issnlivro < 10000000) {
+			issn = sc.nextInt();
+			while (issn > 99999999 || issn < 10000000) {
 				System.out.println("Valor invalido");
 				System.out.println("Digite novamente");
-				issnlivro = sc.nextInt();
+				issn = sc.nextInt();
 			}
-
+			li.setIssn(issn);
+			
 			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 //				Gerar o codigo unico;
 				String line = br.readLine();
 				while (line != null) {
 
-					codigolivro++;
+					codigo++;
 					line = br.readLine();
 
 				}
-				Livros li = new Livros(codigolivro, autorlivro, titulolivro, editoralivro, tipolivro,
-						ano, issnlivro);
+				li.setCodigo(codigo);
 
 				FileWriter adicionar = new FileWriter(path, true);
 				PrintWriter pw = new PrintWriter(adicionar);

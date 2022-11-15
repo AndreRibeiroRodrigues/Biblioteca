@@ -6,16 +6,6 @@ public class Livros {
 	int anopublicacao;
 	private char tipo;
 
-	public Livros(int codigo, String autor, String titulo, String editora,char tipo,  int anopublicacao, int issn) {
-		super();
-		this.codigo = codigo;
-		this.autor = autor;
-		this.titulo = titulo;
-		this.editora = editora;
-		this.tipo = tipo;
-		this.anopublicacao = anopublicacao;
-		this.issn = issn;
-	}
 
 	public int getCodigo() {
 		return codigo;

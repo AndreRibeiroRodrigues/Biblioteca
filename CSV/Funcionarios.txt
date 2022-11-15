@@ -1,1 +1,2 @@
 matrícula,nome,endereço,data-ingresso,setor,senha,login
+65952451,bruna,praia,15/11/2022,tecnologia,brun4,bruna
