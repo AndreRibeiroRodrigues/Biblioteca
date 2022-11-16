@@ -7,23 +7,31 @@ import entities.Auth;
 public class Biblioteca {
 	static Scanner sc = new Scanner(System.in);
 	public static Auth au = new Auth();
+	
+	static int escolha;
+	
+	static Cadastrar cr = new Cadastrar();
+	static Emprestimo em = new Emprestimo();
+	static Relatório re = new Relatório();
 
 	public static void main(String[] args) {
 
-		login();
+		inicio();
 	}
 
 	public static void inicio() {
-		int escolha;
+		
 
-		Cadastrar cr = new Cadastrar();
-		Emprestimo em = new Emprestimo();
-		Relatório re = new Relatório();
+		
 
 		System.out.println("BIBLIOTECA");
-		System.out.println("------------------");
-		System.out.println("[1] Cadastro de itens " + "[2] Cadastro de usuarios " + "[3] Emprestico de itens "
-				+ "[4] Emitir Relaório " + "[5] sair");
+		System.out.println("\n");
+		System.out.println("[1] Cadastro de itens ");
+		System.out.println("[2] Cadastro de usuarios ");
+		System.out.println("[3] Emprestico de itens ");
+		System.out.println("[4] Emitir Relaório ");
+		System.out.println("[5] sair");
+		
 		escolha = sc.nextInt();
 
 		switch (escolha) {
@@ -31,17 +39,44 @@ public class Biblioteca {
 		case 1:
 			cr.cadastroItem();
 		case 2:
-			cr.cadastroUsuario();
+			cadastroUsuario();
 		case 3:
 			em.EmprestimoLivro();
 		case 4:
 			re.Relatorio();
 		case 5:
 			System.out.println("Voce saiu");
+			break;
+		default:
+			System.out.println("Error: Valor invalido");
 		}
-		System.out.println("erro");
 		sc.close();
 
+	}
+	
+	static void cadastroUsuario() {
+		System.out.println("Escolha quem voce quer cadastrar");
+		System.out.println("[1] Funcionario");
+		System.out.println("[2] Professor");
+		System.out.println("[3] Aluno");
+		escolha = sc.nextInt();
+		
+		switch(escolha){
+		case 1:
+			System.out.println("voce escolheu Funcionario");
+			cr.cadastroFuncionario();
+		case 2:
+			System.out.println("Voce escolheu Professor");
+			cr.cadastroProfessor();
+		case 3:
+			System.out.println("Voce escolheu Aluno");
+			cr.cadastroAluno();
+		case 4:
+			System.out.println("Voce escolheu voltar");
+			inicio();
+		}
+		sc.close();
+		
 	}
 
 	static void login() {
@@ -63,6 +98,7 @@ public class Biblioteca {
 				System.out.println("Usuario ou senha invalido");
 			}
 		} while (status != true);
+		sc.close();
 	}
-
+	
 }

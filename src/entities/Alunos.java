@@ -5,18 +5,6 @@ public class Alunos {
     private String nome, endereco, curso, data;
     private double multa;
 
-    
-    
-    public Alunos(int matricula, String nome, String endereco, String curso, String data, Double multa) {
-		super();
-		this.matricula = matricula;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.curso = curso;
-		this.data = data;
-		this.multa = multa;
-	}
-
 	public int getMatricula() {
         return matricula;
     }

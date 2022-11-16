@@ -5,14 +5,6 @@ public class Professor {
 	private int matricula;
 	private String nome,endereco,setor,data;
 
-	public Professor(int matricula, String nome, String endereco, String setor, String data) {
-		super();
-		this.matricula = matricula;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.setor = setor;
-		this.data = data;
-	}
 	public int getMatricula() {
 		return matricula;
 	}

@@ -15,7 +15,7 @@ public class autenticar {
 
 		Auth at = new Auth();
 
-		String path = "C:\\GitHub\\Biblioteca\\CSV\\Funcionarios.txt";
+		String path = "Biblioteca\\CSV\\Funcionarios.txt";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			String line = br.readLine();
@@ -26,17 +26,12 @@ public class autenticar {
 				String[] vect = line.split(",");
 				at.setUsuario(vect[6]);
 				at.setSenha(vect[5]);
-
+				
 				funcio.add(at.getUsuario());
 				senh.add(at.getSenha());
 
-				System.out.println(funcio);
-				System.out.println(senh);
-
 				line = br.readLine();
 			}
-			System.out.println(user);
-			System.out.println(senha);
 
 			if (funcio.contains(user)) {
 				if (senh.contains(senha)) {
@@ -48,7 +43,7 @@ public class autenticar {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Error:" + e.getMessage());
+			System.out.println("Error: " + e.getMessage());
 		}
 
 	}

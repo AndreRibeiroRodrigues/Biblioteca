@@ -1,6 +1,0 @@
-1,as,as,as,l,12/12/2000,12121212
-2,ad,ad,ad,p,12/12/2001,12451245
-3,qw,qw,qw,p,12/12/2012,12451245
-4,as,as,as,l,12/12/2012,16534265
-5,andre ribeiro,uma vida ,faesa centro universitario,P,2000,12312312
-6,andre ribeiro,um dois,masi mais,L,2002,12312312
