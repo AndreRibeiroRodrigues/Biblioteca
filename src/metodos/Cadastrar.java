@@ -167,7 +167,9 @@ public class Cadastrar {
 		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Funcionarios.txt";
 
 		Funcionario funcionario = new Funcionario();
+		
 		String es;
+		
 		do {
 			System.out.println("Voce iniciou o cadastro de usuarios. \n");
 			System.out.println("Digite a matricula do usuario:");
