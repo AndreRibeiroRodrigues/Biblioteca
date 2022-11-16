@@ -4,18 +4,6 @@ public class Funcionario {
 	int matricula;
 	String nome, endereco, dataingrasso, setor, senha, login;
 	
-	public Funcionario(int matricula, String nome, String endereco, String dataingrasso, String setor, String senha,
-			String login) {
-		super();
-		this.matricula = matricula;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.dataingrasso = dataingrasso;
-		this.setor = setor;
-		this.senha = senha;
-		this.login = login;
-	}
-	
 	public int getMatricula() {
 		return matricula;
 	}

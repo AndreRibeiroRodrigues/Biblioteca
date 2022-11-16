@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import entities.Alunos;
+import entities.Funcionario;
 import entities.Livros;
 import entities.Professor;
 
@@ -164,6 +165,50 @@ public class Cadastrar {
 	public void cadastroFuncionario() {
 //		matrícula,nome,endereço,data-ingresso,setor,senha,login
 		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Funcionarios.txt";
+
+		Funcionario funcionario = new Funcionario();
+		String es;
+		do {
+			System.out.println("Voce iniciou o cadastro de usuarios. \n");
+			System.out.println("Digite a matricula do usuario:");
+			funcionario.setMatricula(sc.nextInt());
+
+			System.out.println("Digite o nome do funcionario:");
+			funcionario.setNome(sc.nextLine());
+
+			System.out.println("Digite  endereco do usuario:");
+			funcionario.setEndereco(sc.nextLine());
+
+			System.err.println("Informe a data de ingresso do aluno:");
+			System.out.println("digite o dia:");
+			int dia = sc.nextInt();
+			System.out.println("Digite o mes:");
+			int mes = sc.nextInt();
+			System.out.println("digite o ano:");
+			int ano = sc.nextInt();
+
+			funcionario.setDataingrasso(dia + "/" + mes + "/" + ano);
+
+			try {
+				FileWriter local = new FileWriter(path, true);
+				PrintWriter pw = new PrintWriter(local);
+				pw.println(funcionario.toString());
+				pw.flush();
+				pw.close();
+			} catch (IOException e) {
+				System.out.println("ERROR: " + e.getMessage());
+			}
+			// escolha de cadastrar novamente;
+			System.out.println("Deseja cadastrar mais um professor?");
+			System.out.println("[S] Sim [N] Não");
+			es = sc.next();
+			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
+				System.out.println("valor Invalido");
+				System.out.println("Digite novamente");
+				es = sc.next();
+			}
+		} while (es.equalsIgnoreCase("s"));
+		Biblioteca.inicio();
 
 	}
 
