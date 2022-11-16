@@ -110,32 +110,41 @@ public class Cadastrar {
 		Professor prof = new Professor();
 
 		String es;
+		int dia, mes, ano;
 		do {
 			System.out.println("voce inicou o cadastro de professor");
-
 			System.out.println("Digite a matricula de professor:");
 			prof.setMatricula(sc.nextInt());
-			
+
 			System.out.println("Digite o nome do professor:");
 			prof.setNome(sc.nextLine());
-			
+
 			System.out.println("Digite o endereço do professor:");
 			prof.setEndereco(sc.nextLine());
-			
+
 			System.out.println("Digite o setor do professor:");
 			prof.setSetor(sc.nextLine());
-			
-			System.out.println("Digite a data de ingresso do professor:");
-			prof.setData(sc.nextLine());
-			
-			try {
-			FileWriter adicionar = new FileWriter(path, true);
-			PrintWriter pw = new PrintWriter(adicionar);
 
-			pw.println(prof.toString());
-			pw.flush();
-			pw.close();
-			}catch(IOException e) {
+			System.out.println("Data de ingresso do professor:");
+
+			System.out.println("digite o dia:");
+			dia = sc.nextInt();
+
+			System.out.println("Digite o mes:");
+			mes = sc.nextInt();
+
+			System.out.println("Digite o ano");
+			ano = sc.nextInt();
+
+			prof.setData(dia + "/" + mes + "/" + ano);
+
+			try {
+				FileWriter local = new FileWriter(path, true);
+				PrintWriter pw = new PrintWriter(local);
+				pw.println(prof.toString());
+				pw.flush();
+				pw.close();
+			} catch (IOException e) {
 				System.out.println("ERROR: " + e.getMessage());
 			}
 
