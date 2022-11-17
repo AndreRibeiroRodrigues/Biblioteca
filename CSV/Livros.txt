@@ -1,1 +1,3 @@
+Código,Nome,Titulo,Editora,Tipo,AnoPublicação,issn
 1,andre rineiro,adsa,asd,L,2012,12341234
+2,andre ribeiro,uma vida moderna,brasilha editora,L,1900,12345678

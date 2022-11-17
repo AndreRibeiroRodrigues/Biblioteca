@@ -48,10 +48,8 @@ public class Biblioteca {
 			re.Relatorio();
 		case 5:
 			System.out.println("Voce saiu");
-			break;
-		default:
-			System.out.println("Error: Valor invalido");
 		}
+		
 		sc.close();
 
 	}
@@ -93,7 +91,7 @@ public class Biblioteca {
 			Altenticar(user, senha);
 			status = au.getStatus();
 			if (status == true) {
-				System.out.printf("Seja bem vindo(a) %s \n\n", au.getUsuario());
+				System.out.printf("Seja bem vindo(a) %s \n\n", user);
 				inicio();
 			} else {
 				System.out.println("Falha no login");

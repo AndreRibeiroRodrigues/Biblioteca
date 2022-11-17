@@ -1,2 +1,3 @@
 Matricula,Nome,Endereco,Curso,DataIngresso,Multa
 24578616,mariajulha,Ruaseiladasquantas,economia,12/05/2022,100.00
+1245,andre ribeiro,vitória,null,12/12/2012,0.0

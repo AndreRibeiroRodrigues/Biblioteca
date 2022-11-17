@@ -23,10 +23,10 @@ public class Cadastrar {
 		Livros livro = new Livros();
 
 		String es;
-		int codigo = 1;
+		int codigo = 0;
 
+		System.out.println("Voce iniciou o cadastro de item");
 		do {
-			System.out.println("Voce iniciou o cadastro de item");
 			System.out.println("Digite o nome do autor:");
 			livro.setAutor(sc.nextLine());
 
@@ -49,8 +49,7 @@ public class Cadastrar {
 			System.out.println("Digite o issn:");
 			livro.setIssn(sc.nextInt());
 			while (livro.getIssn() > 99999999 || livro.getIssn() < 10000000) {
-				System.out.println("Valor invalido");
-				System.out.println("Digite novamente");
+				System.out.println("Valor digitado invalido \nDigite novamente");
 				livro.setIssn(sc.nextInt());
 			}
 
@@ -92,54 +91,81 @@ public class Cadastrar {
 
 	public void cadastroAluno() {
 //		Matricula,Nome,Endereco,Curso,DataIngresso,Multa
-		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Aluno.txt";
+		path = "C:\\GitHub\\Biblioteca\\CSV\\Aluno.txt";
 
 		Alunos aluno = new Alunos();
+		String es;
 
 		System.out.println("voce inicou o cadastro de alunos");
 
-		System.out.println("Digite a matricula do aluno:");
-		aluno.setMatricula(sc.nextInt());
+		do {
+			System.out.println("Digite a matricula do aluno:");
+			aluno.setMatricula(sc.nextInt());
+			while (aluno.getMatricula() > 99999999 || aluno.getMatricula() < 10000000) {
+				System.out.println("Valor invalido");
+				System.out.println("Digite novamente");
+				aluno.setMatricula(sc.nextInt());
+			}
+			
+			sc.nextLine();
+			System.out.println("Digite o nome do aluno:");
+			aluno.setNome(sc.nextLine());
 
-		sc.nextLine();
-		System.out.println("Digite o nome do aluno:");
-		aluno.setNome(sc.nextLine());
+			System.out.println("Digite o endereço do aluno:");
+			aluno.setEndereco(sc.nextLine());
+			System.out.println("Informe a data de ingresso:");
 
-		System.out.println("Digite o endereço do aluno:");
-		aluno.setEndereco(sc.nextLine());
-		System.out.println("Informe a data de ingresso:");
+			System.out.println("Digite o dia:");
+			int dia = sc.nextInt();
+			while(dia > 31 || dia < 01) {
+				System.out.println("Dia invalido");
+			}
+			
+			System.out.println("Digite o mes:");
+			int mes = sc.nextInt();
+			
+			System.out.println("Digite o ano:");
+			int ano = sc.nextInt();
+			while (ano < 1900 || ano > 2030) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				ano = sc.nextInt();
+			}
+			aluno.setData(dia + "/" + mes + "/" + ano);
 
-		System.out.println("Digite o dia:");
-		int dia = sc.nextInt();
-		System.out.println("Digite o mes:");
-		int mes = sc.nextInt();
-		System.out.println("Digite o ano:");
-		int ano = sc.nextInt();
-		aluno.setData(dia + "/" + mes + "/" + ano);
-		
-		try {
-			FileWriter local = new FileWriter(path, true);
-			PrintWriter pw = new PrintWriter(local);
-			pw.println(aluno.toString());
-			pw.flush();
-			pw.close();
+			try {
+				FileWriter local = new FileWriter(path, true);
+				PrintWriter pw = new PrintWriter(local);
+				pw.println(aluno.toString());
+				pw.flush();
+				pw.close();
 
-		} catch (IOException e) {
-			System.out.println("ERROR: " + e.getMessage());
-		}
+			} catch (IOException e) {
+				System.out.println("ERROR: " + e.getMessage());
+			}
+//			escolha de cadastrar novamente;
+			System.out.println("Deseja cadastrar mais um professor?");
+			System.out.println("[S] Sim [N] Não");
+			es = sc.next();
+			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
+				System.out.println("valor Invalido");
+				System.out.println("Digite novamente");
+				es = sc.next();
+			}
+		} while (es.equalsIgnoreCase("s"));
+		Biblioteca.inicio();
 
 	}
 
 	public void cadastroProfessor() {
 //		matrícula,nome,endereço,data-ingresso,setor
-		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Professores.txt";
+		path = "C:\\GitHub\\Biblioteca\\CSV\\Professores.txt";
 
 		Professor prof = new Professor();
 
 		String es;
-		int dia, mes, ano;
+
+		System.out.println("voce inicou o cadastro de professor");
 		do {
-			System.out.println("voce inicou o cadastro de professor");
 			System.out.println("Digite a matricula de professor:");
 			prof.setMatricula(sc.nextInt());
 			sc.nextLine();
@@ -155,13 +181,17 @@ public class Cadastrar {
 			System.out.println("Data de ingresso do professor:");
 
 			System.out.println("digite o dia:");
-			dia = sc.nextInt();
+			int dia = sc.nextInt();
 
 			System.out.println("Digite o mes:");
-			mes = sc.nextInt();
+			int mes = sc.nextInt();
 
 			System.out.println("Digite o ano");
-			ano = sc.nextInt();
+			int ano = sc.nextInt();
+			while (ano < 1900 || ano > 2030) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				ano = sc.nextInt();
+			}
 
 			prof.setData(dia + "/" + mes + "/" + ano);
 
@@ -176,7 +206,7 @@ public class Cadastrar {
 				System.out.println("ERROR: " + e.getMessage());
 			}
 
-//		escolha de cadastrar novamente;
+//			escolha de cadastrar novamente;
 			System.out.println("Deseja cadastrar mais um professor?");
 			System.out.println("[S] Sim [N] Não");
 			es = sc.next();
@@ -191,32 +221,47 @@ public class Cadastrar {
 
 	public void cadastroFuncionario() {
 //		matrícula,nome,endereço,data-ingresso,setor,senha,login
-		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Funcionarios.txt";
+		path = "C:\\GitHub\\Biblioteca\\CSV\\Funcionarios.txt";
 
 		Funcionario funcionario = new Funcionario();
 
 		String es;
 
+		System.out.println("Voce iniciou o cadastro de usuarios. \n");
+
 		do {
-			System.out.println("Voce iniciou o cadastro de usuarios. \n");
 			System.out.println("Digite a matricula do usuario:");
 			funcionario.setMatricula(sc.nextInt());
-
+			sc.nextLine();
 			System.out.println("Digite o nome do funcionario:");
 			funcionario.setNome(sc.nextLine());
 
 			System.out.println("Digite  endereco do usuario:");
 			funcionario.setEndereco(sc.nextLine());
 
-			System.err.println("Informe a data de ingresso do aluno:");
+			System.out.println("Informe a data de ingresso do aluno:");
+			
 			System.out.println("digite o dia:");
 			int dia = sc.nextInt();
 			System.out.println("Digite o mes:");
 			int mes = sc.nextInt();
 			System.out.println("digite o ano:");
 			int ano = sc.nextInt();
-
+			while (ano < 1900 || ano > 2030) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				ano = sc.nextInt();
+			}
 			funcionario.setDataingrasso(dia + "/" + mes + "/" + ano);
+			sc.nextLine();
+			System.out.println("Digite o setor do funcionario:");
+			funcionario.setSetor(sc.nextLine());
+			
+			System.out.println("Digite o login do funcionario:");
+			funcionario.setLogin(sc.nextLine());
+			
+			System.out.println("Digite a senha do funcionario:");
+			funcionario.setSenha(sc.nextLine());
+			sc.close();
 
 			try {
 				FileWriter local = new FileWriter(path, true);
@@ -227,7 +272,7 @@ public class Cadastrar {
 			} catch (IOException e) {
 				System.out.println("ERROR: " + e.getMessage());
 			}
-			// escolha de cadastrar novamente;
+//			escolha de cadastrar novamente;
 			System.out.println("Deseja cadastrar mais um professor?");
 			System.out.println("[S] Sim [N] Não");
 			es = sc.next();
@@ -235,10 +280,11 @@ public class Cadastrar {
 				System.out.println("valor Invalido");
 				System.out.println("Digite novamente");
 				es = sc.next();
+				sc.close();
 			}
 		} while (es.equalsIgnoreCase("s"));
 		Biblioteca.inicio();
-
+		
 	}
 
 }
