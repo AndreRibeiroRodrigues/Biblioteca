@@ -18,7 +18,7 @@ public class Cadastrar {
 	public Scanner sc = new Scanner(System.in);
 
 	public void cadastroItem() {
-		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Livros.txt";
+		path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
 
 		Livros livro = new Livros();
 
@@ -116,7 +116,7 @@ public class Cadastrar {
 			System.out.println("voce inicou o cadastro de professor");
 			System.out.println("Digite a matricula de professor:");
 			prof.setMatricula(sc.nextInt());
-
+			sc.nextLine();
 			System.out.println("Digite o nome do professor:");
 			prof.setNome(sc.nextLine());
 
@@ -167,9 +167,9 @@ public class Cadastrar {
 		path = "C:\\Users\\andrerodrigues\\git\\Biblioteca\\CSV\\Funcionarios.txt";
 
 		Funcionario funcionario = new Funcionario();
-		
+
 		String es;
-		
+
 		do {
 			System.out.println("Voce iniciou o cadastro de usuarios. \n");
 			System.out.println("Digite a matricula do usuario:");
