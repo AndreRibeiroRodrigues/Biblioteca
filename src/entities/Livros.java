@@ -1,11 +1,9 @@
 package entities;
 
 public class Livros {
-	private int codigo, issn;
-	private String autor, titulo, editora;
-	int anopublicacao;
+	private int codigo;
+	private String autor, titulo, issn, fatorImpacto, editora, anopublicação;
 	private char tipo;
-
 
 	public int getCodigo() {
 		return codigo;
@@ -13,14 +11,6 @@ public class Livros {
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
-	}
-
-	public int getIssn() {
-		return issn;
-	}
-
-	public void setIssn(int issn) {
-		this.issn = issn;
 	}
 
 	public String getAutor() {
@@ -39,6 +29,22 @@ public class Livros {
 		this.titulo = titulo;
 	}
 
+	public String getIssn() {
+		return issn;
+	}
+
+	public void setIssn(String issn) {
+		this.issn = issn;
+	}
+
+	public String getFatorImpacto() {
+		return fatorImpacto;
+	}
+
+	public void setFatorImpacto(String fatorImpacto) {
+		this.fatorImpacto = fatorImpacto;
+	}
+
 	public String getEditora() {
 		return editora;
 	}
@@ -47,12 +53,12 @@ public class Livros {
 		this.editora = editora;
 	}
 
-	public int getAnopublicacao() {
-		return anopublicacao;
+	public String getAnopublicação() {
+		return anopublicação;
 	}
 
-	public void setAnopublicacao(int anopublicacao) {
-		this.anopublicacao = anopublicacao;
+	public void setAnopublicação(String anopublicação) {
+		this.anopublicação = anopublicação;
 	}
 
 	public char getTipo() {
@@ -65,7 +71,7 @@ public class Livros {
 
 	@Override
 	public String toString() {
-		return codigo + "," + autor + "," + titulo + "," + editora + "," + tipo + "," + anopublicacao + "," + issn;
+		return codigo + "," + autor + "," + titulo + "," + tipo + "," + issn;
 	}
 
 }

@@ -17,77 +17,78 @@ public class Cadastrar {
 
 	public Scanner sc = new Scanner(System.in);
 
-	public void cadastroItem() {
-		path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
-
-		Livros livro = new Livros();
-
-		String es;
-		int codigo = 0;
-
-		System.out.println("Voce iniciou o cadastro de item");
-		do {
-			System.out.println("Digite o nome do autor:");
-			livro.setAutor(sc.nextLine());
-
-			System.out.println("Digite o titulo:");
-			livro.setTitulo(sc.nextLine());
-
-			System.out.println("Digite a editora:");
-			livro.setEditora(sc.nextLine());
-
-			System.out.println("Digite o tipo [L] livro [P] periodico:");
-			livro.setTipo(sc.next().toUpperCase().charAt(0));
-
-			System.out.println("Digite o ano de publicação:");
-			livro.setAnopublicacao(sc.nextInt());
-			while (livro.getAnopublicacao() < 1900 || livro.getAnopublicacao() > 2030) {
-				System.out.println("Valor digitado invalido \nDigite novamente");
-				livro.setAnopublicacao(sc.nextInt());
-			}
-
-			System.out.println("Digite o issn:");
-			livro.setIssn(sc.nextInt());
-			while (livro.getIssn() > 99999999 || livro.getIssn() < 10000000) {
-				System.out.println("Valor digitado invalido \nDigite novamente");
-				livro.setIssn(sc.nextInt());
-			}
-
-			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-//				Gerar o codigo unico;
-				String line = br.readLine();
-				while (line != null) {
-					codigo++;
-					line = br.readLine();
-				}
-				livro.setCodigo(codigo);
-
-				FileWriter adicionar = new FileWriter(path, true);
-				PrintWriter pw = new PrintWriter(adicionar);
-
-				pw.println(livro.toString());
-				pw.flush();
-				pw.close();
-
-			}
-
-			catch (IOException e) {
-				System.out.println("Error: " + e.getMessage());
-				System.out.println("Nao foi possivel cadastrar o item \n");
-			}
-
-//		escolha de cadastrar novamente;
-			System.out.println("Deseja cadastrar mais um iten?");
-			System.out.println("[S] Sim [N] Não");
-			es = sc.next();
-			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
-				System.out.println("valor Invalido");
-				System.out.println("Digite novamente");
-				es = sc.next();
-			}
-		} while (es.equalsIgnoreCase("s"));
-		Biblioteca.inicio();
-	}
+//	public void cadastroItem() {
+////		Consertar e ajustar para cadastrar periodico e livro alternando pelo tipo 
+//		path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
+//
+//		Livros livro = new Livros();
+//
+//		String es;
+//		int codigo = 0;
+//
+//		System.out.println("Voce iniciou o cadastro de item");
+//		do {
+//			System.out.println("Digite o nome do autor:");
+//			livro.setAutor(sc.nextLine());
+//
+//			System.out.println("Digite o titulo:");
+//			livro.setTitulo(sc.nextLine());
+//
+//			System.out.println("Digite a editora:");
+//			livro.setEditora(sc.nextLine());
+//
+//			System.out.println("Digite o tipo [L] livro [P] periodico:");
+//			livro.setTipo(sc.next().toUpperCase().charAt(0));
+//
+//			System.out.println("Digite o ano de publicação:");
+//			livro.setAnopublicacao(sc.nextInt());
+//			while (livro.getAnopublicacao() < 1900 || livro.getAnopublicacao() > 2030) {
+//				System.out.println("Valor digitado invalido \nDigite novamente");
+//				livro.setAnopublicacao(sc.nextInt());
+//			}
+//
+//			System.out.println("Digite o issn:");
+//			livro.setIssn(sc.nextInt());
+//			while (livro.getIssn() > 99999999 || livro.getIssn() < 10000000) {
+//				System.out.println("Valor digitado invalido \nDigite novamente");
+//				livro.setIssn(sc.nextInt());
+//			}
+//
+//			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+////				Gerar o codigo unico;
+//				String line = br.readLine();
+//				while (line != null) {
+//					codigo++;
+//					line = br.readLine();
+//				}
+//				livro.setCodigo(codigo);
+//
+//				FileWriter adicionar = new FileWriter(path, true);
+//				PrintWriter pw = new PrintWriter(adicionar);
+//
+//				pw.println(livro.toString());
+//				pw.flush();
+//				pw.close();
+//
+//			}
+//
+//			catch (IOException e) {
+//				System.out.println("Error: " + e.getMessage());
+//				System.out.println("Nao foi possivel cadastrar o item \n");
+//			}
+//
+////		escolha de cadastrar novamente;
+//			System.out.println("Deseja cadastrar mais um iten?");
+//			System.out.println("[S] Sim [N] Não");
+//			es = sc.next();
+//			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
+//				System.out.println("valor Invalido");
+//				System.out.println("Digite novamente");
+//				es = sc.next();
+//			}
+//		} while (es.equalsIgnoreCase("s"));
+//		Biblioteca.inicio();
+//	}
 
 	public void cadastroAluno() {
 //		Matricula,Nome,Endereco,Curso,DataIngresso,Multa
@@ -106,7 +107,7 @@ public class Cadastrar {
 				System.out.println("Digite novamente");
 				aluno.setMatricula(sc.nextInt());
 			}
-			
+
 			sc.nextLine();
 			System.out.println("Digite o nome do aluno:");
 			aluno.setNome(sc.nextLine());
@@ -117,13 +118,18 @@ public class Cadastrar {
 
 			System.out.println("Digite o dia:");
 			int dia = sc.nextInt();
-			while(dia > 31 || dia < 01) {
-				System.out.println("Dia invalido");
+			while (dia > 31 || dia < 01) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				dia = sc.nextInt();
 			}
-			
+
 			System.out.println("Digite o mes:");
 			int mes = sc.nextInt();
-			
+			while (mes > 12 || mes < 01) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				mes = sc.nextInt();
+			}
+
 			System.out.println("Digite o ano:");
 			int ano = sc.nextInt();
 			while (ano < 1900 || ano > 2030) {
@@ -182,11 +188,19 @@ public class Cadastrar {
 
 			System.out.println("digite o dia:");
 			int dia = sc.nextInt();
+			while (dia > 31 || dia < 01) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				dia = sc.nextInt();
+			}
 
 			System.out.println("Digite o mes:");
 			int mes = sc.nextInt();
+			while (mes > 12 || mes < 01) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				mes = sc.nextInt();
+			}
 
-			System.out.println("Digite o ano");
+			System.out.println("Digite o ano:");
 			int ano = sc.nextInt();
 			while (ano < 1900 || ano > 2030) {
 				System.out.println("Valor digitado invalido \nDigite novamente");
@@ -240,12 +254,22 @@ public class Cadastrar {
 			funcionario.setEndereco(sc.nextLine());
 
 			System.out.println("Informe a data de ingresso do aluno:");
-			
+
 			System.out.println("digite o dia:");
 			int dia = sc.nextInt();
+			while (dia > 31 || dia < 01) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				dia = sc.nextInt();
+			}
+
 			System.out.println("Digite o mes:");
 			int mes = sc.nextInt();
-			System.out.println("digite o ano:");
+			while (mes > 12 || mes < 01) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				mes = sc.nextInt();
+			}
+
+			System.out.println("Digite o ano:");
 			int ano = sc.nextInt();
 			while (ano < 1900 || ano > 2030) {
 				System.out.println("Valor digitado invalido \nDigite novamente");
@@ -255,10 +279,10 @@ public class Cadastrar {
 			sc.nextLine();
 			System.out.println("Digite o setor do funcionario:");
 			funcionario.setSetor(sc.nextLine());
-			
+
 			System.out.println("Digite o login do funcionario:");
 			funcionario.setLogin(sc.nextLine());
-			
+
 			System.out.println("Digite a senha do funcionario:");
 			funcionario.setSenha(sc.nextLine());
 			sc.close();
@@ -284,7 +308,7 @@ public class Cadastrar {
 			}
 		} while (es.equalsIgnoreCase("s"));
 		Biblioteca.inicio();
-		
+
 	}
 
 }

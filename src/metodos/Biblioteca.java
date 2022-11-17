@@ -3,8 +3,6 @@ package metodos;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import entities.Auth;
@@ -38,18 +36,23 @@ public class Biblioteca {
 
 		switch (escolha) {
 
-		case 1:
-			cr.cadastroItem();
+//		case 1:
+////			cr.cadastroItem();
+//			break;
 		case 2:
 			cadastroUsuario();
+			break;
 		case 3:
 			em.EmprestimoLivro();
+			break;
 		case 4:
 			re.Relatorio();
+			break;
 		case 5:
 			System.out.println("Voce saiu");
+			break;
 		}
-		
+
 		sc.close();
 
 	}
@@ -65,15 +68,19 @@ public class Biblioteca {
 		case 1:
 			System.out.println("voce escolheu Funcionario");
 			cr.cadastroFuncionario();
+			break;
 		case 2:
 			System.out.println("Voce escolheu Professor");
 			cr.cadastroProfessor();
+			break;
 		case 3:
 			System.out.println("Voce escolheu Aluno");
 			cr.cadastroAluno();
+			break;
 		case 4:
 			System.out.println("Voce escolheu voltar");
 			inicio();
+			break;
 		}
 		sc.close();
 
@@ -82,34 +89,30 @@ public class Biblioteca {
 	static void login() {
 		String user;
 		String senha;
-		boolean status;
+		
 		do {
 			System.out.println("Digite seu usuario:");
 			user = sc.next();
 			System.out.println("Digite a sua senha:");
 			senha = sc.next();
 			Altenticar(user, senha);
-			status = au.getStatus();
-			if (status == true) {
+			
+			if (au.getStatus() == true) {
 				System.out.printf("Seja bem vindo(a) %s \n\n", user);
 				inicio();
 			} else {
 				System.out.println("Falha no login");
 				System.out.println("Usuario ou senha invalido");
 			}
-		} while (status != true);
+		} while (au.getStatus() != true);
 		sc.close();
 	}
 
 	static void Altenticar(String user, String senha) {
-		List<String> funcio = new ArrayList<>();
-		List<String> senh = new ArrayList<>();
-
 		String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.txt";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 			String line = br.readLine();
-			line = br.readLine();
 
 			while (line != null) {
 
@@ -117,18 +120,12 @@ public class Biblioteca {
 				au.setUsuario(vect[6]);
 				au.setSenha(vect[5]);
 
-				funcio.add(au.getUsuario());
-				senh.add(au.getSenha());
+				if (au.getUsuario().equalsIgnoreCase(user) && au.getSenha().equalsIgnoreCase(senha)) {
+					au.setStatus(true);
+					break;
+				}
 
 				line = br.readLine();
-			}
-
-			if (funcio.contains(user) && senh.contains(senha)) {
-				au.setStatus(true);
-
-			} else {
-				au.setStatus(false);
-
 			}
 
 		} catch (IOException e) {
