@@ -100,7 +100,33 @@ public class Cadastrar {
 
 		System.out.println("Digite a matricula do aluno:");
 		aluno.setMatricula(sc.nextInt());
-		System.out.println(aluno.getMatricula());
+
+		sc.nextLine();
+		System.out.println("Digite o nome do aluno:");
+		aluno.setNome(sc.nextLine());
+
+		System.out.println("Digite o endereço do aluno:");
+		aluno.setEndereco(sc.nextLine());
+		System.out.println("Informe a data de ingresso:");
+
+		System.out.println("Digite o dia:");
+		int dia = sc.nextInt();
+		System.out.println("Digite o mes:");
+		int mes = sc.nextInt();
+		System.out.println("Digite o ano:");
+		int ano = sc.nextInt();
+		aluno.setData(dia + "/" + mes + "/" + ano);
+		
+		try {
+			FileWriter local = new FileWriter(path, true);
+			PrintWriter pw = new PrintWriter(local);
+			pw.println(aluno.toString());
+			pw.flush();
+			pw.close();
+
+		} catch (IOException e) {
+			System.out.println("ERROR: " + e.getMessage());
+		}
 
 	}
 
@@ -145,6 +171,7 @@ public class Cadastrar {
 				pw.println(prof.toString());
 				pw.flush();
 				pw.close();
+
 			} catch (IOException e) {
 				System.out.println("ERROR: " + e.getMessage());
 			}
