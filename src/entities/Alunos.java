@@ -80,9 +80,9 @@ public class Alunos {
                 System.out.println("Digite novamente");
                 es = sc.next();
             }
+            sc.close();
         } while (es.equalsIgnoreCase("s"));
         Biblioteca.inicio();
-        sc.close();
 
     }
 

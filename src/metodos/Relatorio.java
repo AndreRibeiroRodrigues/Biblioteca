@@ -6,18 +6,18 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Relatorio {
+	private static final String path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\CSV\\";
 	static Scanner sc = new Scanner(System.in);
 	public void Relat() {
-		
 
 //		relatório de cadastro BY total
 		try {
-			BufferedReader Livro = new BufferedReader(new FileReader("C:\\GitHub\\Biblioteca\\CSV\\Livros.csv"));
+			BufferedReader Livro = new BufferedReader(new FileReader(path + "Livros.csv"));
 			BufferedReader Funcionario = new BufferedReader(
-					new FileReader("C:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv"));
-			BufferedReader Alunos = new BufferedReader(new FileReader("C:\\GitHub\\Biblioteca\\CSV\\Aluno.csv"));
+					new FileReader(path + "Funcionarios.csv"));
+			BufferedReader Alunos = new BufferedReader(new FileReader(path + "Aluno.csv"));
 			BufferedReader Emprestimos = new BufferedReader(
-					new FileReader("C:\\GitHub\\Biblioteca\\CSV\\Emprestimo.csv"));
+					new FileReader(path + "Emprestimo.csv"));
 
 			int totalLivros = 0;
 			int totalEmprestimos = 0;
@@ -78,7 +78,7 @@ public class Relatorio {
 		System.out.println("Qual aluno voce deseja ver:");
 		String aluno = sc.nextLine();
 		
-		try(BufferedReader Alu = new BufferedReader(new FileReader("C:\\GitHub\\Biblioteca\\CSV\\Aluno.csv"))) {
+		try(BufferedReader Alu = new BufferedReader(new FileReader(path + "Aluno.csv"))) {
 			Alu.readLine();
 			while(Alu != null) {
 				Alu.readLine();

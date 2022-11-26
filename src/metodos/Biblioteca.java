@@ -83,7 +83,7 @@ public class Biblioteca {
 			inicio();
 			break;
 		}
-		sc.close();
+		
 
 	}
 
@@ -96,14 +96,14 @@ public class Biblioteca {
 			user = sc.next();
 			System.out.println("Digite a sua senha:");
 			senha = sc.next();
-			Altenticar(user, senha);
 
-			String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
-			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\CSV\\Funcionarios.csv";
+			// String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
+			try (BufferedReader br = new BufferedReader(new FileReader(path ))) {
 				
 				String line = br.readLine();
 
-				boolean status;
+				boolean status = false;
 				while (line != null) {
 					line = br.readLine();
 					String[] vect = line.replaceAll("\"", "").split(";");
@@ -111,15 +111,16 @@ public class Biblioteca {
 					String s = vect[5];
 					System.out.println(u + "/" + s);
 					System.out.println(user + "/" + senha);
-					if (u.equalsIgnoreCase(user) && s.equalsIgnoreCase(senha + "\"")) {
+					if (u.equalsIgnoreCase(user) && s.equalsIgnoreCase(senha)) {
 						status = true;
+						break;
 					} else {
 						status = false;
 					}
 
 					line = br.readLine();
 				}
-				if (status  != true) {
+				if (status) {
 					System.out.printf("Seja bem vindo(a) %s \n\n", user);
 					inicio();
 				} else {
@@ -135,11 +136,6 @@ public class Biblioteca {
 
 		} while (au.getStatus() != true);
 		sc.close();
-	}
-
-	static void Altenticar(String user, String senha) {
-		
-
 	}
 
 }

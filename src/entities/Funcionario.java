@@ -10,11 +10,12 @@ import metodos.Biblioteca;
 public class Funcionario {
 
 	private int matricula;
-	private 	String nome, endereco, dataingrasso, setor, senha, login;
+	private String nome, endereco, dataingrasso, setor, senha, login;
 	
 	static public void cadastroFuncionario() {
 		// matrícula,nome,endereço,data-ingresso,setor,senha,login
-		String path = "C:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
+		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main";
+		//String path = "C:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
 		Scanner sc = new Scanner(System.in);
 
 		Funcionario funcionario = new Funcionario();
@@ -64,10 +65,10 @@ public class Funcionario {
 
 			System.out.println("Digite a senha do funcionario:");
 			funcionario.setSenha(sc.nextLine());
-			sc.close();
+			
 
 			try {
-				FileWriter local = new FileWriter(path, true);
+				FileWriter local = new FileWriter(path + "\\CSV\\Funcionario.csv", true);
 				PrintWriter pw = new PrintWriter(local);
 				pw.println(funcionario.toString());
 				pw.flush();
@@ -86,7 +87,7 @@ public class Funcionario {
 			}
 		} while (es.equalsIgnoreCase("s"));
 		Biblioteca.inicio();
-
+		sc.close();
 	}
 
 
@@ -148,7 +149,7 @@ public class Funcionario {
 
 	@Override
 	public String toString() {
-		return matricula + "," + nome + "," + endereco + "," + dataingrasso + "," + setor + "," + senha + "," + login;
+		return matricula + ";" + nome + ";" + endereco + ";" + dataingrasso + ";" + setor + ";" + senha + ";" + login;
 	}
 	
 	
