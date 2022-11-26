@@ -1,9 +1,94 @@
 package entities;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+import metodos.Biblioteca;
+
 public class Livros {
 	private int codigo;
-	private String autor, titulo, issn, fatorImpacto, editora, anopublicação;
 	private char tipo;
+	private String autor;
+	private String titulo;
+	private String issn;
+	private String fatorImpacto;
+	private String editora;
+	private int anoPublicacao;
+
+	public void cadastroItem() {
+		// Consertar e ajustar para cadastrar periodico e livro alternando pelo tipo
+		String path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
+		Scanner sc = new Scanner(System.in);
+
+		Livros livro = new Livros();
+
+		String es;
+
+		System.out.println("Voce iniciou o cadastro de item");
+		do {
+			System.out.println("Digite o nome do autor:");
+			this.setAutor(sc.nextLine());
+
+			System.out.println("Digite o titulo:");
+			this.setTitulo(sc.nextLine());
+
+			System.out.println("Digite a editora:");
+			this.setEditora(sc.nextLine());
+			System.out.println("Digite o fator de impacto:");
+			this.setFatorImpacto(sc.nextLine());
+
+			System.out.println("Digite o tipo [L] livro [P] periodico:");
+			this.setTipo(sc.next().toUpperCase().charAt(0));
+
+			System.out.println("Digite o ano de publicação:");
+			this.setAnoPublicacao(sc.nextInt());
+			while (this.getAnoPublicacao() < 1900 || this.getAnoPublicacao() > 2030) {
+				System.out.println("Valor digitado invalido \nDigite novamente");
+				this.setAnoPublicacao(sc.nextInt());
+			}
+			System.out.println("Digite o issn:");
+			this.setIssn(sc.next());
+
+			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+				// Gerar o codigo unico;
+				String line = br.readLine();
+				while (line != null) {
+					codigo++;
+					line = br.readLine();
+				}
+				livro.setCodigo(codigo);
+
+				FileWriter adicionar = new FileWriter(path, true);
+				PrintWriter pw = new PrintWriter(adicionar);
+
+				pw.println(livro.toString());
+				pw.flush();
+				pw.close();
+
+			}
+
+			catch (IOException e) {
+				System.out.println("Error: " + e.getMessage());
+				System.out.println("Nao foi possivel cadastrar o item \n");
+			}
+
+			// escolha de cadastrar novamente;
+			System.out.println("Deseja cadastrar mais um iten?");
+			System.out.println("[S] Sim [N] Não");
+			es = sc.next();
+			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
+				System.out.println("valor Invalido");
+				System.out.println("Digite novamente");
+				es = sc.next();
+			}
+		} while (es.equalsIgnoreCase("s"));
+		Biblioteca.inicio();
+		sc.close();
+	}
 
 	public int getCodigo() {
 		return codigo;
@@ -11,6 +96,14 @@ public class Livros {
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+
+	public char getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(char tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getAutor() {
@@ -53,25 +146,18 @@ public class Livros {
 		this.editora = editora;
 	}
 
-	public String getAnopublicação() {
-		return anopublicação;
+	public int getAnoPublicacao() {
+		return anoPublicacao;
 	}
 
-	public void setAnopublicação(String anopublicação) {
-		this.anopublicação = anopublicação;
-	}
-
-	public char getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(char tipo) {
-		this.tipo = tipo;
+	public void setAnoPublicacao(int anoPublicacao) {
+		this.anoPublicacao = anoPublicacao;
 	}
 
 	@Override
 	public String toString() {
-		return codigo + "," + autor + "," + titulo + "," + tipo + "," + issn;
+		return codigo + ";" + tipo + ";" + autor + ";" + titulo
+				+ ";" + issn + ";" + editora + ";" + anoPublicacao;
 	}
 
 }

@@ -5,20 +5,25 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import entities.Alunos;
 import entities.Auth;
+import entities.Emprestimo;
+import entities.Funcionario;
+import entities.Livros;
+import entities.Professor;
 
 public class Biblioteca {
 	static Scanner sc = new Scanner(System.in);
-	public static Auth au = new Auth();
+	static Auth au = new Auth();
 
 	static int escolha;
 
-	static Cadastrar cr = new Cadastrar();
+	static Professor pr = new Professor();
+	static Livros li = new Livros();
 	static Emprestimo em = new Emprestimo();
-	static Relatório re = new Relatório();
+	static Relatorio re = new Relatorio();
 
 	public static void main(String[] args) {
-
 		login();
 	}
 
@@ -36,25 +41,22 @@ public class Biblioteca {
 
 		switch (escolha) {
 
-//		case 1:
-////			cr.cadastroItem();
-//			break;
+		case 1:
+			li.cadastroItem();
+			break;
 		case 2:
 			cadastroUsuario();
 			break;
 		case 3:
-			em.EmprestimoLivro();
+			em.Emprestar();
 			break;
 		case 4:
-			re.Relatorio();
+			re.Relat();
 			break;
 		case 5:
 			System.out.println("Voce saiu");
 			break;
 		}
-
-		sc.close();
-
 	}
 
 	static void cadastroUsuario() {
@@ -67,15 +69,14 @@ public class Biblioteca {
 		switch (escolha) {
 		case 1:
 			System.out.println("voce escolheu Funcionario");
-			cr.cadastroFuncionario();
+			Funcionario.cadastroFuncionario();
 			break;
-		case 2:
-			System.out.println("Voce escolheu Professor");
-			cr.cadastroProfessor();
-			break;
+		///case 2:
+			///System.out.println("Voce escolheu Professor");
+			///break;
 		case 3:
 			System.out.println("Voce escolheu Aluno");
-			cr.cadastroAluno();
+			Alunos.cadastroAluno();
 			break;
 		case 4:
 			System.out.println("Voce escolheu voltar");
@@ -96,41 +97,48 @@ public class Biblioteca {
 			System.out.println("Digite a sua senha:");
 			senha = sc.next();
 			Altenticar(user, senha);
-			
-			if (au.getStatus() == true) {
-				System.out.printf("Seja bem vindo(a) %s \n\n", user);
-				inicio();
-			} else {
-				System.out.println("Falha no login");
-				System.out.println("Usuario ou senha invalido");
+
+			String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
+			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+				
+				String line = br.readLine();
+
+				boolean status;
+				while (line != null) {
+					line = br.readLine();
+					String[] vect = line.replaceAll("\"", "").split(";");
+					String u = vect[6];
+					String s = vect[5];
+					System.out.println(u + "/" + s);
+					System.out.println(user + "/" + senha);
+					if (u.equalsIgnoreCase(user) && s.equalsIgnoreCase(senha + "\"")) {
+						status = true;
+					} else {
+						status = false;
+					}
+
+					line = br.readLine();
+				}
+				if (status  != true) {
+					System.out.printf("Seja bem vindo(a) %s \n\n", user);
+					inicio();
+				} else {
+					System.out.println("Falha no login");
+					System.out.println("Usuario ou senha invalido");
+				}
+
+			} catch (IOException e) {
+				System.out.println("Error: " + e.getMessage());
 			}
+			
+			
+
 		} while (au.getStatus() != true);
 		sc.close();
 	}
 
 	static void Altenticar(String user, String senha) {
-		String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.txt";
-
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-			String line = br.readLine();
-
-			while (line != null) {
-
-				String[] vect = line.split(",");
-				au.setUsuario(vect[6]);
-				au.setSenha(vect[5]);
-
-				if (au.getUsuario().equalsIgnoreCase(user) && au.getSenha().equalsIgnoreCase(senha)) {
-					au.setStatus(true);
-					break;
-				}
-
-				line = br.readLine();
-			}
-
-		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
-		}
+		
 
 	}
 

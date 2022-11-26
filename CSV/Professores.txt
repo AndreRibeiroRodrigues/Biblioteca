@@ -1,3 +1,0 @@
-matrícula,nome,endereço,data-ingresso,setor
-12,andre,as,ad,12/12/2012
-124521,,1212,2,12/12/12

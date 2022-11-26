@@ -2,8 +2,15 @@ package entities;
 
 public class Professor {
 	private int matricula;
-	private String nome, endereco, setor, data;
+	private String nome;
+	private String endereco;
+	private String setor;
+	private String data;
 
+	void cadastroProfessor() {
+		//<matrícula>;<nome>;<endereço>;<data-ingresso>;<setor>
+		System.out.println();
+	}
 	public int getMatricula() {
 		return matricula;
 	}

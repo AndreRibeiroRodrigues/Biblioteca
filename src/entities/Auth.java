@@ -1,8 +1,8 @@
 package entities;
 
 public class Auth {
-	String usuario, senha;
-	boolean status;
+	private String usuario, senha;
+	private boolean status;
 
 	public String getUsuario() {
 		return usuario;
