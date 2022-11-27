@@ -1,8 +1,13 @@
 package entities;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import metodos.Biblioteca;
@@ -12,7 +17,54 @@ public class Alunos {
     private String nome, endereco, curso, data;
     private double multa;
 
-    public static void cadastroAluno() {
+    public Alunos(int matricula, String nome, String endereco, String curso, String data, double multa) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.curso = curso;
+        this.data = data;
+        this.multa = multa;
+    }
+    public Alunos() {
+    }
+
+	public  List<Alunos> valores() throws FileNotFoundException, IOException{
+		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\";
+		
+        List<Alunos> alunos = new ArrayList<>();
+		try(BufferedReader lineReader = new BufferedReader(new FileReader(path + "Aluno.csv"))){
+			String line = lineReader.readLine();	
+			while(line != null){
+					line = lineReader.readLine();
+					String[] vect = line.replaceAll("\"", "").split(";");
+					Alunos aluno = new Alunos(Integer.parseInt(vect[0]), vect[1], vect[2],vect[3],vect[4],Double.parseDouble(vect[5]));
+                    alunos.add(aluno);
+                }
+                return alunos;
+			}
+	}
+
+    public void persisteDados(List<Alunos> alunos){
+        String path = "C:\\GitHub\\Biblioteca\\CSV\\Aluno.csv";
+
+        try {
+            FileWriter local = new FileWriter(path);
+            PrintWriter pw = new PrintWriter(local);
+
+            for(int i=0; i<alunos.size(); i++){
+                pw.println(alunos.get(i).toString());
+                pw.flush();
+            }
+
+            pw.close();
+
+        } catch (IOException e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+
+
+    public static void cadastroAluno(List<Alunos> alunos) {
         // Matricula,Nome,Endereco,Curso,DataIngresso,Multa
         String path = "C:\\GitHub\\Biblioteca\\CSV\\Aluno.csv";
         Scanner sc = new Scanner(System.in);
@@ -60,17 +112,8 @@ public class Alunos {
                 ano = sc.nextInt();
             }
             aluno.setData(dia + "/" + mes + "/" + ano);
+            alunos.add(aluno);
 
-            try {
-                FileWriter local = new FileWriter(path, true);
-                PrintWriter pw = new PrintWriter(local);
-                pw.println(aluno.toString());
-                pw.flush();
-                pw.close();
-
-            } catch (IOException e) {
-                System.out.println("ERROR: " + e.getMessage());
-            }
             // escolha de cadastrar novamente;
             System.out.println("Deseja cadastrar mais um professor?");
             System.out.println("[S] Sim [N] Não");

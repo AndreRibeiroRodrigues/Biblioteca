@@ -1,8 +1,13 @@
 package entities;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import metodos.Biblioteca;
@@ -12,6 +17,36 @@ public class Funcionario {
 	private int matricula;
 	private String nome, endereco, dataingrasso, setor, senha, login;
 	
+	
+	public Funcionario(int matricula, String nome, String endereco, String dataingrasso, String setor, String senha,
+			String login) {
+		this.matricula = matricula;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.dataingrasso = dataingrasso;
+		this.setor = setor;
+		this.senha = senha;
+		this.login = login;
+	}
+	
+	public Funcionario() {
+	}
+
+	public  List<Funcionario> valores() throws FileNotFoundException, IOException{
+		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\";
+		
+        List<Funcionario> funcionarios = new ArrayList<>();
+		try(BufferedReader lineReader = new BufferedReader(new FileReader(path + "Funcionarios.csv"))){
+			String line = lineReader.readLine();	
+			while(line != null){
+					line = lineReader.readLine();
+					String[] vect = line.replaceAll("\"", "").split(";");
+					Funcionario aluno = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4], vect[5], vect[6]);
+                    funcionarios.add(aluno);
+                }
+                return funcionarios;
+			}
+	}
 	static public void cadastroFuncionario() {
 		// matrícula,nome,endereço,data-ingresso,setor,senha,login
 		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main";
@@ -68,7 +103,7 @@ public class Funcionario {
 			
 
 			try {
-				FileWriter local = new FileWriter(path + "\\CSV\\Funcionario.csv", true);
+				FileWriter local = new FileWriter(path + "\\CSV\\Funcionarios.csv", true);
 				PrintWriter pw = new PrintWriter(local);
 				pw.println(funcionario.toString());
 				pw.flush();

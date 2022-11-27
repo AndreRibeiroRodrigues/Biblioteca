@@ -1,15 +1,18 @@
 package metodos;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import entities.Alunos;
 import entities.Auth;
 import entities.Emprestimo;
 import entities.Funcionario;
-import entities.Livros;
+import entities.ItensEmprestimo;
+import entities.Livro;
 import entities.Professor;
 
 public class Biblioteca {
@@ -18,13 +21,22 @@ public class Biblioteca {
 
 	static int escolha;
 
+	static Alunos al = new Alunos();
 	static Professor pr = new Professor();
-	static Livros li = new Livros();
+	static Livro li = new Livro();
 	static Emprestimo em = new Emprestimo();
 	static Relatorio re = new Relatorio();
+	static ItensEmprestimo ie = new ItensEmprestimo();
+	static Funcionario fu = new Funcionario();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, IOException {
 		login();
+		List<Alunos> alunos = al.valores();
+		List<Emprestimo> emprestimos = em.valores();
+		List<Livro> livros = li.valores();
+		List<ItensEmprestimo> ItensEmprestimos = ie.valores();
+		List<Funcionario> funcionarios = fu.valores();
+
 	}
 
 	public static void inicio() {

@@ -17,10 +17,10 @@ public class Livro {
 	private char tipo;
 	private String autor;
 	private String titulo;
-	private String issn;
 	private String fatorImpacto;
 	private String editora;
 	private int anoPublicacao;
+	private String issn;
 
 	public Livro(int codigo, char tipo, String autor, String titulo, String issn, String fatorImpacto, String editora,
 			int anoPublicacao) {
@@ -28,15 +28,15 @@ public class Livro {
 		this.tipo = tipo;
 		this.autor = autor;
 		this.titulo = titulo;
-		this.issn = issn;
 		this.fatorImpacto = fatorImpacto;
 		this.editora = editora;
 		this.anoPublicacao = anoPublicacao;
+		this.issn = issn;
 	}
 
 	public Livro() {
 	}
-	public  List<Livros> valores() throws FileNotFoundException, IOException{
+	public  List<Livro> valores() throws FileNotFoundException, IOException{
 		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\";
 		
         List<Livro> Livros = new ArrayList<>();
@@ -45,19 +45,19 @@ public class Livro {
 			while(line != null){
 					line = lineReader.readLine();
 					String[] vect = line.replaceAll("\"", "").split(";");
-					ItensEmprestimo aluno = new ItensEmprestimo(Integer.parseInt(vect[0]),Integer.parseInt(vect[1]),Integer.parseInt(vect[2]),Integer.parseInt(vect[3]),vect[4]);
-                    ItensEmprestimos.add(aluno);
+					Livro Livro = new Livro(Integer.parseInt(vect[0]),vect[1].charAt(0),vect[2],vect[3],vect[4],vect[5],vect[6],Integer.parseInt(vect[7]));
+                    Livros.add(Livro);
                 }
-                return ItensEmprestimos;
+                return Livros;
 			}
 	}
-
+	//Código,Nome,Titulo,Editora,fatorimpacto,Tipo,AnoPublicação,issn
 	public void cadastroItem() {
 		// Consertar e ajustar para cadastrar periodico e livro alternando pelo tipo
 		String path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
 		Scanner sc = new Scanner(System.in);
 
-		Livros livro = new Livros();
+		Livro livro = new Livro();
 
 		String es;
 
@@ -121,6 +121,15 @@ public class Livro {
 		} while (es.equalsIgnoreCase("s"));
 		Biblioteca.inicio();
 		sc.close();
+	}
+
+	public Livro getLivro(List<Livro> livros, int codigo) {
+		for(int i=0; i<livros.size(); i++){
+			if(livros.get(i).getCodigo() == codigo)
+				return livros.get(i);
+		}
+
+		return null;
 	}
 
 	public int getCodigo() {
