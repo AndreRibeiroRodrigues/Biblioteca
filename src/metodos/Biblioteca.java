@@ -1,15 +1,18 @@
 package metodos;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import entities.Alunos;
 import entities.Auth;
 import entities.Emprestimo;
 import entities.Funcionario;
-import entities.Livros;
+import entities.ItensEmprestimo;
+import entities.Livro;
 import entities.Professor;
 
 public class Biblioteca {
@@ -18,17 +21,27 @@ public class Biblioteca {
 
 	static int escolha;
 
+	static Alunos al = new Alunos();
 	static Professor pr = new Professor();
-	static Livros li = new Livros();
+	static Livro li = new Livro();
 	static Emprestimo em = new Emprestimo();
 	static Relatorio re = new Relatorio();
+	static ItensEmprestimo ie = new ItensEmprestimo();
+	static Funcionario fu = new Funcionario();
 
-	public static void main(String[] args) {
-		login();
+	public void main(String[] args) throws FileNotFoundException, IOException {
+		List<Alunos> alunos = al.valores();
+		List<Emprestimo> emprestimos = em.valores();
+		List<Livro> livros = li.valores();
+		List<ItensEmprestimo> ItensEmprestimos = ie.valores();
+		List<Funcionario> funcionarios = fu.valores();
+		login(funcionarios, ItensEmprestimos, livros, emprestimos, alunos);
+
 	}
 
-	public static void inicio() {
-
+	public static void inicio(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+			List<Funcionario> funcionarios,
+			List<Alunos> alunos, List<Emprestimo> emprestimos) {
 		System.out.println("BIBLIOTECA");
 		System.out.println("\n");
 		System.out.println("[1] Cadastro de itens ");
@@ -41,25 +54,28 @@ public class Biblioteca {
 
 		switch (escolha) {
 
-		case 1:
-			li.cadastroItem();
-			break;
-		case 2:
-			cadastroUsuario();
-			break;
-		case 3:
-			em.Emprestar();
-			break;
-		case 4:
-			re.Relat();
-			break;
-		case 5:
-			System.out.println("Voce saiu");
-			break;
+			case 1:
+				li.cadastroItem(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
+			case 2:
+				cadastroUsuario(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
+			case 3:
+				em.Emprestar(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
+			case 4:
+				re.Relat(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
+			case 5:
+				System.out.println("Voce saiu");
+				al.persisteDados(alunos);
+				li.persisteDados(livros);
+				break;
 		}
 	}
 
-	static void cadastroUsuario() {
+	static void cadastroUsuario(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+			List<Funcionario> funcionarios,	List<Alunos> alunos, List<Emprestimo> emprestimos) {
 		System.out.println("Escolha quem voce quer cadastrar");
 		System.out.println("[1] Funcionario");
 		System.out.println("[2] Professor");
@@ -67,30 +83,30 @@ public class Biblioteca {
 		escolha = sc.nextInt();
 
 		switch (escolha) {
-		case 1:
-			System.out.println("voce escolheu Funcionario");
-			Funcionario.cadastroFuncionario();
-			break;
-		///case 2:
-			///System.out.println("Voce escolheu Professor");
-			///break;
-		case 3:
-			System.out.println("Voce escolheu Aluno");
-			Alunos.cadastroAluno();
-			break;
-		case 4:
-			System.out.println("Voce escolheu voltar");
-			inicio();
-			break;
+			case 1:
+				System.out.println("voce escolheu Funcionario");
+				Funcionario.cadastroFuncionario(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
+			/// case 2:
+			/// System.out.println("Voce escolheu Professor");
+			/// break;
+			case 3:
+				System.out.println("Voce escolheu Aluno");
+				Alunos.cadastroAluno(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
+			case 4:
+				System.out.println("Voce escolheu voltar");
+				inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+				break;
 		}
-		
 
 	}
 
-	static void login() {
+	static void login(List<Funcionario> funcionarios, List<ItensEmprestimo> ItensEmprestimos, List<Livro> livros,
+			List<Emprestimo> emprestimos, List<Alunos> alunos) {
 		String user;
 		String senha;
-		
+
 		do {
 			System.out.println("Digite seu usuario:");
 			user = sc.next();
@@ -99,8 +115,8 @@ public class Biblioteca {
 
 			var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\CSV\\Funcionarios.csv";
 			// String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
-			try (BufferedReader br = new BufferedReader(new FileReader(path ))) {
-				
+			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
 				String line = br.readLine();
 
 				boolean status = false;
@@ -122,7 +138,7 @@ public class Biblioteca {
 				}
 				if (status) {
 					System.out.printf("Seja bem vindo(a) %s \n\n", user);
-					inicio();
+					inicio(livros, ItensEmprestimos, funcionarios, alunos, emprestimos);
 				} else {
 					System.out.println("Falha no login");
 					System.out.println("Usuario ou senha invalido");
@@ -131,8 +147,6 @@ public class Biblioteca {
 			} catch (IOException e) {
 				System.out.println("Error: " + e.getMessage());
 			}
-			
-			
 
 		} while (au.getStatus() != true);
 		sc.close();

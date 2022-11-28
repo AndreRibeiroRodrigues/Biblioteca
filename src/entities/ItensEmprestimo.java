@@ -1,18 +1,42 @@
 package entities;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItensEmprestimo{
-    private int codigoitem, codigoemprestimo, codigolivro, codigoperiodico;
+    private int codigoitem, codigoemprestimo, codigolivro;
     private String datadevolucao;
 
-    public ItensEmprestimo(int codigoitem, int codigoemprestimo, int codigolivro, int codigoperiodico, String datadevolucao){
+    public ItensEmprestimo(int codigoitem, int codigoemprestimo, int codigolivro, String datadevolucao){
         super();
         this.codigoitem = codigoitem;
         this.codigoemprestimo = codigoemprestimo;
         this.codigolivro = codigolivro;
-        this.codigoperiodico = codigoperiodico;
         this.datadevolucao = datadevolucao;
     }
 
+    public ItensEmprestimo() {
+    }
+
+    public  List<ItensEmprestimo> valores() throws FileNotFoundException, IOException{
+		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\";
+		
+        List<ItensEmprestimo> ItensEmprestimos = new ArrayList<>();
+		try(BufferedReader lineReader = new BufferedReader(new FileReader(path + "Funcionarios.csv"))){
+			String line = lineReader.readLine();	
+			while(line != null){
+					line = lineReader.readLine();
+					String[] vect = line.replaceAll("\"", "").split(";");
+					ItensEmprestimo aluno = new ItensEmprestimo(Integer.parseInt(vect[0]),Integer.parseInt(vect[1]),Integer.parseInt(vect[2]),vect[3]);
+                    ItensEmprestimos.add(aluno);
+                }
+                return ItensEmprestimos;
+			}
+	}
     public int getCodigoitem(){ 
         return codigoitem;
     }
@@ -36,14 +60,6 @@ public class ItensEmprestimo{
     public void setCodigolivro(int codigolivro){
         this.codigolivro = codigolivro;
     }
-
-    public int getCodigoperiodico(){
-        return codigoperiodico;
-    }
-
-    public void setCodigoperiodico(int codigoperiodico){
-        this.codigoperiodico = codigoperiodico;
-    }
     public String getDatadevolucao(){
         return datadevolucao;
     }
@@ -52,6 +68,6 @@ public class ItensEmprestimo{
     }
     @Override
     public String toString(){
-        return codigoitem + "," + codigoemprestimo + "," + codigolivro + "," + codigoperiodico + "," + datadevolucao;
+        return codigoitem + "," + codigoemprestimo + "," + codigolivro + "," + datadevolucao;
     }
 }

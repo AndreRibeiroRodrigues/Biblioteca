@@ -1,8 +1,13 @@
 package entities;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import metodos.Biblioteca;
@@ -12,10 +17,64 @@ public class Funcionario {
 	private int matricula;
 	private String nome, endereco, dataingrasso, setor, senha, login;
 	
-	static public void cadastroFuncionario() {
+	
+	public Funcionario(int matricula, String nome, String endereco, String dataingrasso, String setor, String senha,
+			String login) {
+		this.matricula = matricula;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.dataingrasso = dataingrasso;
+		this.setor = setor;
+		this.senha = senha;
+		this.login = login;
+	}
+	
+	public Funcionario() {
+	}
+
+	public List<Funcionario> valores() throws FileNotFoundException, IOException {
+		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+
+		List<Funcionario> funcionarios = new ArrayList<>();
+		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Funcionarios.csv"))) {
+			String line = lineReader.readLine();
+			while (line != null) {
+				line = lineReader.readLine();
+				String[] vect = line.replaceAll("\"", "").split(";");
+				Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
+						vect[5], vect[6]);
+				funcionarios.add(funcionario);
+			}
+			return funcionarios;
+		}
+	}
+	
+	public void persisteDados(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+			List<Funcionario> funcionarios,
+			List<Alunos> alunos, List<Emprestimo> emprestimos) {
+		String path = "C:\\GitHub\\Biblioteca\\CSV";
+
+		try {
+			FileWriter local = new FileWriter(path + "\\Funcionarios.csv");
+			PrintWriter pw = new PrintWriter(local);
+
+			for (int i = 0; i < funcionarios.size(); i++) {
+				pw.println(funcionarios.get(i).toString());
+				pw.flush();
+			}
+
+			pw.close();
+
+		} catch (IOException e) {
+			System.out.println("ERROR: " + e.getMessage());
+		}
+	}
+
+	static public void cadastroFuncionario(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+			List<Funcionario> funcionarios,
+			List<Alunos> alunos, List<Emprestimo> emprestimos) {
 		// matrícula,nome,endereço,data-ingresso,setor,senha,login
-		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main";
-		//String path = "C:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
+
 		Scanner sc = new Scanner(System.in);
 
 		Funcionario funcionario = new Funcionario();
@@ -26,6 +85,7 @@ public class Funcionario {
 		do {
 			System.out.println("Digite a matricula do usuario:");
 			funcionario.setMatricula(sc.nextInt());
+			
 			sc.nextLine();
 			System.out.println("Digite o nome do funcionario:");
 			funcionario.setNome(sc.nextLine());
@@ -65,18 +125,9 @@ public class Funcionario {
 
 			System.out.println("Digite a senha do funcionario:");
 			funcionario.setSenha(sc.nextLine());
-			
+			funcionarios.add(funcionario);
 
-			try {
-				FileWriter local = new FileWriter(path + "\\CSV\\Funcionario.csv", true);
-				PrintWriter pw = new PrintWriter(local);
-				pw.println(funcionario.toString());
-				pw.flush();
-				pw.close();
-			} catch (IOException e) {
-				System.out.println("ERROR: " + e.getMessage());
-			}
-			// escolha de cadastrar novamente;
+		// escolha de cadastrar novamente;
 			System.out.println("Deseja cadastrar mais um professor?");
 			System.out.println("[S] Sim [N] Não");
 			es = sc.next();
@@ -86,7 +137,7 @@ public class Funcionario {
 				es = sc.next();
 			}
 		} while (es.equalsIgnoreCase("s"));
-		Biblioteca.inicio();
+		Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
 		sc.close();
 	}
 

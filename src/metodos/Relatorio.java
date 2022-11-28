@@ -3,12 +3,21 @@ package metodos;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
+
+import entities.Alunos;
+import entities.Emprestimo;
+import entities.Funcionario;
+import entities.ItensEmprestimo;
+import entities.Livro;
 
 public class Relatorio {
 	private static final String path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\CSV\\";
 	static Scanner sc = new Scanner(System.in);
-	public void Relat() {
+	public void Relat(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+			List<Funcionario> funcionarios,
+			List<Alunos> alunos, List<Emprestimo> emprestimos) {
 
 //		relatório de cadastro BY total
 		try {
@@ -64,33 +73,22 @@ public class Relatorio {
 			es = sc.next();
 		}
 		if (es.equalsIgnoreCase("s")) {
-			PorAluno();
+			PorAluno(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
 		} else {
-			Biblioteca.inicio();
+			Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
 		}
 		sc.close();
 	}
 
-	static void PorAluno() {
+	static void PorAluno(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+			List<Funcionario> funcionarios,
+			List<Alunos> alunos, List<Emprestimo> emprestimos) {
 		// List<Alunos> ListaAlunos = new ArrayList<>();
 		
 		System.out.println("Voce iniciou o relatório por aluno.");
 		System.out.println("Qual aluno voce deseja ver:");
 		String aluno = sc.nextLine();
 		
-		try(BufferedReader Alu = new BufferedReader(new FileReader(path + "Aluno.csv"))) {
-			Alu.readLine();
-			while(Alu != null) {
-				Alu.readLine();
-				String[] vect = Alu.readLine().split(";");
-				if (vect[1] == aluno) {
-					System.out.println("A multa do aluno " + vect[1]+  " é " + vect[5]);
-				}
-				
-			}
-
-		}catch (IOException e) {
-			System.err.println("Error:" + e.getMessage());
-		}
+		
 	}
 }

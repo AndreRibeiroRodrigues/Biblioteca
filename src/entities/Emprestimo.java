@@ -46,7 +46,9 @@ public class Emprestimo {
 		}
 		
 		//código,matrícula-cliente,matrícula-funcionário,dataempréstimo,data-devolução
-		public void Emprestar(List<Livro> livros, List<Alunos> alunos, List<Funcionario> funcionarios, List<Emprestimo> emprestimos, List<ItensEmprestimo> itensEmprestimos) {	
+		public void Emprestar(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
+				List<Funcionario> funcionarios,
+				List<Alunos> alunos, List<Emprestimo> emprestimos) {	
 		
 		Scanner sc = new Scanner(System.in);
 		int es;

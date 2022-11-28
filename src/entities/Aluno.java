@@ -12,12 +12,15 @@ import java.util.Scanner;
 
 import metodos.Biblioteca;
 
-public class Alunos {
+public class Aluno {
     private int matricula;
-    private String nome, endereco, curso, data;
+    private String nome;
+    private String endereco;
+    private String curso;
+    private String data;
     private double multa;
 
-    public Alunos(int matricula, String nome, String endereco, String curso, String data, double multa) {
+    public Aluno(int matricula, String nome, String endereco, String curso, String data, double multa) {
         this.matricula = matricula;
         this.nome = nome;
         this.endereco = endereco;
@@ -25,53 +28,33 @@ public class Alunos {
         this.data = data;
         this.multa = multa;
     }
-    public Alunos() {
+
+    public Aluno() {
     }
 
-	public  List<Alunos> valores() throws FileNotFoundException, IOException{
-		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\";
-		
-        List<Alunos> alunos = new ArrayList<>();
-		try(BufferedReader lineReader = new BufferedReader(new FileReader(path + "Aluno.csv"))){
-			String line = lineReader.readLine();	
-			while(line != null){
-					line = lineReader.readLine();
-					String[] vect = line.replaceAll("\"", "").split(";");
-					Alunos aluno = new Alunos(Integer.parseInt(vect[0]), vect[1], vect[2],vect[3],vect[4],Double.parseDouble(vect[5]));
-                    alunos.add(aluno);
-                }
-                return alunos;
-			}
-	}
+    public List<Aluno> valores() throws FileNotFoundException, IOException {
+        var path = "C:\\GitHub\\Biblioteca\\CSV";
 
-    public void persisteDados(List<Alunos> alunos){
-        String path = "C:\\GitHub\\Biblioteca\\CSV";
-
-        try {
-            FileWriter local = new FileWriter(path + "\\Aluno.csv");
-            PrintWriter pw = new PrintWriter(local);
-
-            for(int i=0; i<alunos.size(); i++){
-                pw.println(alunos.get(i).toString());
-                pw.flush();
+        List<Aluno> Alunos = new ArrayList<>();
+        try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Aluno.csv"))) {
+            String line = lineReader.readLine();
+            while (line != null) {
+                line = lineReader.readLine();
+                String[] vect = line.replaceAll("\"", "").split(";");
+                Aluno Aluno = new Aluno(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
+                        Double.parseDouble(vect[5]));
+                Alunos.add(Aluno);
             }
-
-            pw.close();
-
-        } catch (IOException e) {
-            System.out.println("ERROR: " + e.getMessage());
+            return Alunos;
         }
     }
 
-
-    public static void cadastroAluno(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
-            List<Funcionario> funcionarios,
-            List<Alunos> alunos, List<Emprestimo> emprestimos) {
+    public static void cadastroAluno() throws FileNotFoundException, IOException {
         // Matricula,Nome,Endereco,Curso,DataIngresso,Multa
-
+        String path = "C:\\GitHub\\Biblioteca\\CSV\\Aluno.csv";
         Scanner sc = new Scanner(System.in);
 
-        Alunos aluno = new Alunos();
+        Aluno aluno = new Aluno();
         String es;
 
         System.out.println("voce inicou o cadastro de alunos");
@@ -114,8 +97,17 @@ public class Alunos {
                 ano = sc.nextInt();
             }
             aluno.setData(dia + "/" + mes + "/" + ano);
-            alunos.add(aluno);
 
+            try {
+                FileWriter local = new FileWriter(path, true);
+                PrintWriter pw = new PrintWriter(local);
+                pw.println(aluno.toString());
+                pw.flush();
+                pw.close();
+
+            } catch (IOException e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
             // escolha de cadastrar novamente;
             System.out.println("Deseja cadastrar mais um professor?");
             System.out.println("[S] Sim [N] Não");
@@ -127,19 +119,18 @@ public class Alunos {
             }
             sc.close();
         } while (es.equalsIgnoreCase("s"));
-        Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+        Biblioteca.inicio();
 
     }
 
-    
-	public int getMatricula() {
+    public int getMatricula() {
         return matricula;
     }
 
     public void setMatricula(int matricula) {
-		this.matricula = matricula;
+        this.matricula = matricula;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -171,15 +162,18 @@ public class Alunos {
     public void setData(String data) {
         this.data = data;
     }
-    public double getMulta(){
+
+    public double getMulta() {
         return multa;
     }
-    public void setMulta(double multa){
+
+    public void setMulta(double multa) {
         this.multa = multa;
     }
+
     @Override
     public String toString() {
-        return  matricula + "," + nome + "," + endereco + "," + curso
-                + "," + data + ","+ multa;
+        return matricula + "," + nome + "," + endereco + "," + curso
+                + "," + data + "," + multa;
     }
 }
