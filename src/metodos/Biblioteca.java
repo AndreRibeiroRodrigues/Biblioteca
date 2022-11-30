@@ -114,7 +114,7 @@ public class Biblioteca {
 			System.out.println("Digite a sua senha:");
 			senha = sc.next();
 
-			var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+			var path = "C:\\GitHub\\Biblioteca\\CSV";
 			
 			try (BufferedReader br = new BufferedReader(new FileReader(path+ "\\Funcionarios.csv"))) {
 
@@ -126,15 +126,12 @@ public class Biblioteca {
 					String[] vect = line.replaceAll("\"", "").split(";");
 					String u = vect[6];
 					String s = vect[5];
-					System.out.println(u + "/" + s);
-					System.out.println(user + "/" + senha);
 					if (u.equalsIgnoreCase(user) && s.equalsIgnoreCase(senha)) {
 						status = true;
 						break;
 					} else {
 						status = false;
 					}
-
 					line = br.readLine();
 				}
 				if (status) {

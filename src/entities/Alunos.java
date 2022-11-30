@@ -30,21 +30,21 @@ public class Alunos {
     }
 
     public List<Alunos> valores() throws FileNotFoundException, IOException {
-        var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+        var path = "C:\\GitHub\\Biblioteca\\CSV";
 
         List<Alunos> alunos = new ArrayList<>();
         try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Aluno.csv"))) {
             String line = lineReader.readLine();
             while (line != null) {
                 line = lineReader.readLine();
-                if (line != null) {
-                    String[] vect = line.replaceAll("\"", "").split(";");
-                    Alunos aluno = new Alunos(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
-                            Double.parseDouble(vect[5]));
-                    alunos.add(aluno);
-                } else {
+                if (line == null || line.isEmpty()) {
                     break;
                 }
+                String[] vect = line.replaceAll("\"", "").split(";");
+                Alunos aluno = new Alunos(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
+                        Double.parseDouble(vect[5]));
+                alunos.add(aluno);
+
             }
             return alunos;
         }

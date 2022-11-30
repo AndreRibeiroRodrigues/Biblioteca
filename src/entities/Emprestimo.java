@@ -30,20 +30,20 @@ public class Emprestimo {
 	}
 
 	public List<Emprestimo> valores() throws FileNotFoundException, IOException {
-		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+		var path = "C:\\GitHub\\Biblioteca\\CSV";
 		List<Emprestimo> Emprestimos = new ArrayList<>();
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Emprestimo.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
-				if (line != null) {
-					String[] vect = line.replaceAll("\"", "").split(";");
-					Emprestimo Emprestimo = new Emprestimo(Integer.parseInt(vect[0]), Integer.parseInt(vect[1]),
-							Integer.parseInt(vect[2]), vect[3], vect[4]);
-					Emprestimos.add(Emprestimo);
-				} else {
+				if (line == null || line.isEmpty()) {
 					break;
 				}
+				String[] vect = line.replaceAll("\"", "").split(";");
+				Emprestimo Emprestimo = new Emprestimo(Integer.parseInt(vect[0]), Integer.parseInt(vect[1]),
+						Integer.parseInt(vect[2]), vect[3], vect[4]);
+				Emprestimos.add(Emprestimo);
+
 			}
 			return Emprestimos;
 		}

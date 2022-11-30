@@ -40,21 +40,21 @@ public class Livro {
 	}
 
 	public List<Livro> valores() throws FileNotFoundException, IOException {
-		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+		var path = "C:\\GitHub\\Biblioteca\\CSV";
 
 		List<Livro> Livros = new ArrayList<>();
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Livros.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
-				if (line != null) {
-					String[] vect = line.replaceAll("\"", "").split(";");
-					Livro Livro = new Livro(Integer.parseInt(vect[0]), vect[1].charAt(0), vect[2], vect[3], vect[4],
-							vect[5], vect[6], Integer.parseInt(vect[7]));
-					Livros.add(Livro);
-				}else{
+				if (line == null || line.isEmpty()) {
 					break;
 				}
+				String[] vect = line.replaceAll("\"", "").split(";");
+				Livro Livro = new Livro(Integer.parseInt(vect[0]), vect[1].charAt(0), vect[2], vect[3], vect[4],
+						vect[5], vect[6], Integer.parseInt(vect[7]));
+				Livros.add(Livro);
+
 			}
 			return Livros;
 		}

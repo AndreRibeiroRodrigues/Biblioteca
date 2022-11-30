@@ -32,22 +32,21 @@ public class Funcionario {
 	}
 
 	public List<Funcionario> valores() throws FileNotFoundException, IOException {
-		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+		var path = "C:\\GitHub\\Biblioteca\\CSV";
 
 		List<Funcionario> funcionarios = new ArrayList<>();
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Funcionarios.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
-				if (line != null) {
-					String[] vect = line.replaceAll("\"", "").split(";");
-					Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3],vect[4],
-							vect[5], vect[6]);
-					funcionarios.add(funcionario);
-				} else {
+				if (line == null || line.isEmpty()) {
 					break;
-
 				}
+				String[] vect = line.replaceAll("\"", "").split(";");
+				Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
+						vect[5], vect[6]);
+				funcionarios.add(funcionario);
+
 			}
 			return funcionarios;
 		}
