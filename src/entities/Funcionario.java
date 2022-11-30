@@ -39,13 +39,15 @@ public class Funcionario {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
-				if (line == null) {
+				if (line != null) {
+					String[] vect = line.replaceAll("\"", "").split(";");
+					Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3],vect[4],
+							vect[5], vect[6]);
+					funcionarios.add(funcionario);
+				} else {
 					break;
+
 				}
-				String[] vect = line.replaceAll("\"", "").split(";");
-				Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
-						vect[5], vect[6]);
-				funcionarios.add(funcionario);
 			}
 			return funcionarios;
 		}
