@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import metodos.Biblioteca;
@@ -35,30 +36,35 @@ public class Livro {
 	}
 
 	public Livro() {
+		this.setCodigo();
 	}
 
 	public List<Livro> valores() throws FileNotFoundException, IOException {
-		var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\";
+		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
 
 		List<Livro> Livros = new ArrayList<>();
-		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "Funcionarios.csv"))) {
+		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Livros.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
-				String[] vect = line.replaceAll("\"", "").split(";");
-				Livro Livro = new Livro(Integer.parseInt(vect[0]), vect[1].charAt(0), vect[2], vect[3], vect[4],
-						vect[5], vect[6], Integer.parseInt(vect[7]));
-				Livros.add(Livro);
+				if (line != null) {
+					String[] vect = line.replaceAll("\"", "").split(";");
+					Livro Livro = new Livro(Integer.parseInt(vect[0]), vect[1].charAt(0), vect[2], vect[3], vect[4],
+							vect[5], vect[6], Integer.parseInt(vect[7]));
+					Livros.add(Livro);
+				}else{
+					break;
+				}
 			}
 			return Livros;
 		}
 	}
-	
+
 	public void persisteDados(List<Livro> livros) {
-		String path = "C:\\GitHub\\Biblioteca\\CSV";
+		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
 
 		try {
-			FileWriter local = new FileWriter(path+ "\\Livros.csv");
+			FileWriter local = new FileWriter(path + "\\Livros.csv");
 			PrintWriter pw = new PrintWriter(local);
 
 			for (int i = 0; i < livros.size(); i++) {
@@ -71,12 +77,10 @@ public class Livro {
 			System.out.println("ERROR: " + e.getMessage());
 		}
 	}
-	//Código,Nome,Titulo,Editora,fatorimpacto,Tipo,AnoPublicação,issn
+
+	// Código,Nome,Titulo,Editora,fatorimpacto,Tipo,AnoPublicação,issn
 	public void cadastroItem(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
-			List<Funcionario> funcionarios,
-			List<Alunos> alunos, List<Emprestimo> emprestimos) {
-		// Consertar e ajustar para cadastrar periodico e livro alternando pelo tipo
-		String path = "C:\\GitHub\\Biblioteca\\CSV\\Livros.txt";
+			List<Funcionario> funcionarios, List<Alunos> alunos, List<Emprestimo> emprestimos) {
 		Scanner sc = new Scanner(System.in);
 
 		Livro livro = new Livro();
@@ -108,28 +112,7 @@ public class Livro {
 			System.out.println("Digite o issn:");
 			this.setIssn(sc.next());
 
-			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-				// Gerar o codigo unico;
-				String line = br.readLine();
-				while (line != null) {
-					codigo++;
-					line = br.readLine();
-				}
-				livro.setCodigo(codigo);
-
-				FileWriter adicionar = new FileWriter(path, true);
-				PrintWriter pw = new PrintWriter(adicionar);
-
-				pw.println(livro.toString());
-				pw.flush();
-				pw.close();
-
-			}
-
-			catch (IOException e) {
-				System.out.println("Error: " + e.getMessage());
-				System.out.println("Nao foi possivel cadastrar o item \n");
-			}
+			livros.add(livro);
 
 			// escolha de cadastrar novamente;
 			System.out.println("Deseja cadastrar mais um iten?");
@@ -146,8 +129,8 @@ public class Livro {
 	}
 
 	public Livro getLivro(List<Livro> livros, int codigo) {
-		for(int i=0; i<livros.size(); i++){
-			if(livros.get(i).getCodigo() == codigo)
+		for (int i = 0; i < livros.size(); i++) {
+			if (livros.get(i).getCodigo() == codigo)
 				return livros.get(i);
 		}
 
@@ -158,8 +141,9 @@ public class Livro {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCodigo() {
+		Random cod = new Random();
+		this.codigo = cod.nextInt(10000000, 99999999);
 	}
 
 	public char getTipo() {

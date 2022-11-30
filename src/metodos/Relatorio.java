@@ -2,7 +2,6 @@ package metodos;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,20 +12,21 @@ import entities.ItensEmprestimo;
 import entities.Livro;
 
 public class Relatorio {
-	private static final String path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\CSV\\";
+	private static final String path = "C:\\GitHub\\Biblioteca\\CSV";
 	static Scanner sc = new Scanner(System.in);
+
 	public void Relat(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
 			List<Funcionario> funcionarios,
 			List<Alunos> alunos, List<Emprestimo> emprestimos) {
 
-//		relatório de cadastro BY total
+		// relatório de cadastro BY total
 		try {
-			BufferedReader Livro = new BufferedReader(new FileReader(path + "Livros.csv"));
+			BufferedReader Livro = new BufferedReader(new FileReader(path + "\\Livros.csv"));
 			BufferedReader Funcionario = new BufferedReader(
-					new FileReader(path + "Funcionarios.csv"));
-			BufferedReader Alunos = new BufferedReader(new FileReader(path + "Aluno.csv"));
+					new FileReader(path + "\\Funcionarios.csv"));
+			BufferedReader Alunos = new BufferedReader(new FileReader(path + "\\Aluno.csv"));
 			BufferedReader Emprestimos = new BufferedReader(
-					new FileReader(path + "Emprestimo.csv"));
+					new FileReader(path + "\\Emprestimo.csv"));
 
 			int totalLivros = 0;
 			int totalEmprestimos = 0;
@@ -63,7 +63,7 @@ public class Relatorio {
 		} catch (Exception e) {
 			System.out.println("ERROR:" + e.getMessage());
 		}
-//		relatório de cadastro BY total
+		// relatório de cadastro BY total
 
 		System.out.println("Deseja ver o rela´torio de multas?");
 		System.out.println("Digite [S] SIM ou [N] Nao");
@@ -73,22 +73,24 @@ public class Relatorio {
 			es = sc.next();
 		}
 		if (es.equalsIgnoreCase("s")) {
-			PorAluno(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+			System.out.println("Qual aluno voce deseja ver:");
+			String aluno = sc.nextLine();
+			System.out.println("o aluno "+ PorAluno(alunos, aluno).getNome() + " tem uma multa de " + "R$ "+PorAluno(alunos, aluno).getMulta());
+
 		} else {
 			Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
 		}
 		sc.close();
 	}
 
-	static void PorAluno(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
-			List<Funcionario> funcionarios,
-			List<Alunos> alunos, List<Emprestimo> emprestimos) {
-		// List<Alunos> ListaAlunos = new ArrayList<>();
-		
-		System.out.println("Voce iniciou o relatório por aluno.");
-		System.out.println("Qual aluno voce deseja ver:");
-		String aluno = sc.nextLine();
-		
-		
+	static Alunos PorAluno(List<Alunos> alunos, String aluno) {
+
+		for (int i = 0; alunos.size() >= i; i++) {
+			if (alunos.get(i).getNome() == aluno) {
+				return alunos.get(i);
+			}
+		}
+		return null;
+
 	}
 }

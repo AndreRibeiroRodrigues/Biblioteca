@@ -16,8 +16,7 @@ public class Funcionario {
 
 	private int matricula;
 	private String nome, endereco, dataingrasso, setor, senha, login;
-	
-	
+
 	public Funcionario(int matricula, String nome, String endereco, String dataingrasso, String setor, String senha,
 			String login) {
 		this.matricula = matricula;
@@ -28,7 +27,7 @@ public class Funcionario {
 		this.senha = senha;
 		this.login = login;
 	}
-	
+
 	public Funcionario() {
 	}
 
@@ -40,6 +39,9 @@ public class Funcionario {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
+				if (line == null) {
+					break;
+				}
 				String[] vect = line.replaceAll("\"", "").split(";");
 				Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
 						vect[5], vect[6]);
@@ -48,12 +50,9 @@ public class Funcionario {
 			return funcionarios;
 		}
 	}
-	
-	public void persisteDados(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
-			List<Funcionario> funcionarios,
-			List<Alunos> alunos, List<Emprestimo> emprestimos) {
-		String path = "C:\\GitHub\\Biblioteca\\CSV";
 
+	public void persisteDados(List<Funcionario> funcionarios) {
+		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
 		try {
 			FileWriter local = new FileWriter(path + "\\Funcionarios.csv");
 			PrintWriter pw = new PrintWriter(local);
@@ -85,7 +84,7 @@ public class Funcionario {
 		do {
 			System.out.println("Digite a matricula do usuario:");
 			funcionario.setMatricula(sc.nextInt());
-			
+
 			sc.nextLine();
 			System.out.println("Digite o nome do funcionario:");
 			funcionario.setNome(sc.nextLine());
@@ -127,7 +126,7 @@ public class Funcionario {
 			funcionario.setSenha(sc.nextLine());
 			funcionarios.add(funcionario);
 
-		// escolha de cadastrar novamente;
+			// escolha de cadastrar novamente;
 			System.out.println("Deseja cadastrar mais um professor?");
 			System.out.println("[S] Sim [N] Não");
 			es = sc.next();
@@ -141,59 +140,58 @@ public class Funcionario {
 		sc.close();
 	}
 
-
 	public int getMatricula() {
 		return matricula;
 	}
-	
+
 	public void setMatricula(int matricula) {
 		this.matricula = matricula;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getEndereco() {
 		return endereco;
 	}
-	
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	public String getDataingrasso() {
 		return dataingrasso;
 	}
-	
+
 	public void setDataingrasso(String dataingrasso) {
 		this.dataingrasso = dataingrasso;
 	}
-	
+
 	public String getSetor() {
 		return setor;
 	}
-	
+
 	public void setSetor(String setor) {
 		this.setor = setor;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
-	
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public String getLogin() {
 		return login;
 	}
-	
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
@@ -202,7 +200,5 @@ public class Funcionario {
 	public String toString() {
 		return matricula + ";" + nome + ";" + endereco + ";" + dataingrasso + ";" + setor + ";" + senha + ";" + login;
 	}
-	
-	
-	
+
 }

@@ -29,7 +29,7 @@ public class Biblioteca {
 	static ItensEmprestimo ie = new ItensEmprestimo();
 	static Funcionario fu = new Funcionario();
 
-	public void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws FileNotFoundException, IOException {
 		List<Alunos> alunos = al.valores();
 		List<Emprestimo> emprestimos = em.valores();
 		List<Livro> livros = li.valores();
@@ -70,6 +70,7 @@ public class Biblioteca {
 				System.out.println("Voce saiu");
 				al.persisteDados(alunos);
 				li.persisteDados(livros);
+				fu.persisteDados(funcionarios);
 				break;
 		}
 	}
@@ -113,9 +114,9 @@ public class Biblioteca {
 			System.out.println("Digite a sua senha:");
 			senha = sc.next();
 
-			var path = "C:\\Users\\talli\\Downloads\\Biblioteca-main\\Biblioteca-main\\CSV\\Funcionarios.csv";
-			// String path = "c:\\GitHub\\Biblioteca\\CSV\\Funcionarios.csv";
-			try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+			
+			try (BufferedReader br = new BufferedReader(new FileReader(path+ "\\Funcionarios.csv"))) {
 
 				String line = br.readLine();
 
