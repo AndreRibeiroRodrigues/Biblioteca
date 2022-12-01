@@ -38,13 +38,13 @@ public class Biblioteca {
 		List<Livro> livros = li.valores();
 		List<ItensEmprestimo> ItensEmprestimos = ie.valores();
 		List<Funcionario> funcionarios = fu.valores();
-		login(funcionarios, ItensEmprestimos, livros, emprestimos, alunos);
+		inicio(funcionarios, ItensEmprestimos, livros, emprestimos, alunos);
 
 	}
 
-	public static void inicio(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
-			List<Funcionario> funcionarios,
-			List<Alunos> alunos, List<Emprestimo> emprestimos) {
+	private static void inicio(List<Funcionario> funcionarios, List<ItensEmprestimo> itensEmprestimos,
+			List<Livro> livros, List<Emprestimo> emprestimos, List<Alunos> alunos) {
+	
 		System.out.println("BIBLIOTECA");
 		System.out.println("\n");
 		System.out.println("[1] Cadastro de itens ");

@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,11 +31,9 @@ public class Alunos {
     public void valores(List<Alunos> alunos) throws FileNotFoundException, IOException {
         var path = "C:\\GitHub\\Biblioteca\\CSV";
 
-       
         try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Alunos.csv"))) {
             String line = lineReader.readLine();
             while (line != null) {
-                line = lineReader.readLine();
                 if (line == null || line.isEmpty()) {
                     break;
                 }
@@ -45,6 +42,7 @@ public class Alunos {
                         Double.parseDouble(vect[5]));
                 alunos.add(aluno);
 
+                line = lineReader.readLine();
             }
         }
     }
@@ -129,7 +127,7 @@ public class Alunos {
                 System.out.println("Digite novamente");
                 es = sc.next();
             }
-            
+
         } while (es.equalsIgnoreCase("s"));
         sc.close();
         Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
