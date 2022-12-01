@@ -89,7 +89,7 @@ public class Livro {
 
 	// Código,Nome,Titulo,Editora,fatorimpacto,Tipo,AnoPublicação,issn
 	public void cadastroItem(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
-			List<Funcionario> funcionarios, List<Alunos> alunos, List<Emprestimo> emprestimos) {
+			List<Funcionario> funcionarios, List<Aluno> alunos, List<Emprestimo> emprestimos) {
 		Scanner sc = new Scanner(System.in);
 
 		Livro livro = new Livro();
@@ -133,8 +133,9 @@ public class Livro {
 				es = sc.next();
 			}
 		} while (es.equalsIgnoreCase("s"));
-		Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+		Biblioteca.inicio(funcionarios, itensEmprestimos, livros, emprestimos, alunos);
 		sc.close();
+		//enquanto true o código é rodado
 	}
 
 

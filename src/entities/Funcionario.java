@@ -72,7 +72,7 @@ public class Funcionario {
 
 	static public void cadastroFuncionario(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
 			List<Funcionario> funcionarios,
-			List<Alunos> alunos, List<Emprestimo> emprestimos) {
+			List<Aluno> alunos, List<Emprestimo> emprestimos) {
 		// matrícula,nome,endereço,data-ingresso,setor,senha,login
 
 		Scanner sc = new Scanner(System.in);
@@ -137,7 +137,7 @@ public class Funcionario {
 				es = sc.next();
 			}
 		} while (es.equalsIgnoreCase("s"));
-		Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+		Biblioteca.inicio(funcionarios, itensEmprestimos, livros, emprestimos, alunos);
 		sc.close();
 	}
 

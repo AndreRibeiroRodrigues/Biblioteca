@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Scanner;
 
-import entities.Alunos;
+import entities.Aluno;
 import entities.Emprestimo;
 import entities.Funcionario;
 import entities.ItensEmprestimo;
@@ -17,7 +17,7 @@ public class Relatorio {
 
 	public void Relat(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
 			List<Funcionario> funcionarios,
-			List<Alunos> alunos, List<Emprestimo> emprestimos) {
+			List<Aluno> alunos, List<Emprestimo> emprestimos) {
 
 		// relatório de cadastro BY total
 		try {
@@ -90,12 +90,12 @@ totalFuncionario = -1;
 				System.out.println("Valor invalido \nDigite Novamente");
 			}
 		} while (es.equalsIgnoreCase("s"));
-		Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+		Biblioteca.inicio(funcionarios, itensEmprestimos, livros, emprestimos, alunos);
 
 		sc.close();
 	}
 
-	static Alunos PorAluno(List<Alunos> alunos, String aluno) {
+	static Aluno PorAluno(List<Aluno> alunos, String aluno) {
 
 		for (int i = 0; alunos.size() >= i; i++) {
 			if (alunos.get(i).getNome() == aluno) {

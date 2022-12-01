@@ -11,12 +11,12 @@ import java.util.Scanner;
 
 import metodos.Biblioteca;
 
-public class Alunos {
+public class Aluno {
     private int matricula;
     private String nome, endereco, curso, data;
     private double multa;
 
-    public Alunos(int matricula, String nome, String endereco, String curso, String data, double multa) {
+    public Aluno(int matricula, String nome, String endereco, String curso, String data, double multa) {
         this.matricula = matricula;
         this.nome = nome;
         this.endereco = endereco;
@@ -25,10 +25,10 @@ public class Alunos {
         this.multa = multa;
     }
 
-    public Alunos() {
+    public Aluno() {
     }
 
-    public void valores(List<Alunos> alunos) throws FileNotFoundException, IOException {
+    public void valores(List<Aluno> alunos) throws FileNotFoundException, IOException {
         var path = "C:\\GitHub\\Biblioteca\\CSV";
 
         try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Alunos.csv"))) {
@@ -38,7 +38,7 @@ public class Alunos {
                     break;
                 }
                 String[] vect = line.replaceAll("\"", "").split(",");
-                Alunos aluno = new Alunos(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
+                Aluno aluno = new Aluno(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
                         Double.parseDouble(vect[5]));
                 alunos.add(aluno);
 
@@ -47,7 +47,7 @@ public class Alunos {
         }
     }
 
-    public void persisteDados(List<Alunos> alunos) {
+    public void persisteDados(List<Aluno> alunos) {
         var path = "C:\\GitHub\\Biblioteca\\CSV";
 
         try {
@@ -68,12 +68,12 @@ public class Alunos {
 
     public static void cadastroAluno(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
             List<Funcionario> funcionarios,
-            List<Alunos> alunos, List<Emprestimo> emprestimos) {
+            List<Aluno> alunos, List<Emprestimo> emprestimos) {
         // Matricula,Nome,Endereco,Curso,DataIngresso,Multa
 
         Scanner sc = new Scanner(System.in);
 
-        Alunos aluno = new Alunos();
+        Aluno aluno = new Aluno();
         String es;
 
         System.out.println("voce inicou o cadastro de alunos");
@@ -130,7 +130,7 @@ public class Alunos {
 
         } while (es.equalsIgnoreCase("s"));
         sc.close();
-        Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+        Biblioteca.inicio(funcionarios, itensEmprestimos, livros, emprestimos, alunos);
     }
 
     public int getMatricula() {
