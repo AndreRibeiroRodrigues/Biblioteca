@@ -38,14 +38,14 @@ public class Funcionario {
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Funcionarios.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
-				line = lineReader.readLine();
 				if (line == null || line.isEmpty()) {
 					break;
 				}
 				String[] vect = line.replaceAll("\"", "").split(";");
 				Funcionario funcionario = new Funcionario(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
-						vect[5], vect[6]);
+				vect[5], vect[6]);
 				funcionarios.add(funcionario);
+				line = lineReader.readLine();
 
 			}
 			return funcionarios;

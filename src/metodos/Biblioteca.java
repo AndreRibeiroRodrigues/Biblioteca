@@ -82,8 +82,8 @@ public class Biblioteca {
 			List<Funcionario> funcionarios,	List<Aluno> alunos, List<Emprestimo> emprestimos) {
 		System.out.println("Escolha quem voce quer cadastrar");
 		System.out.println("[1] Funcionario");
-		System.out.println("[2] Professor");
-		System.out.println("[3] Aluno");
+		System.out.println("[2] Aluno");
+		System.out.println("[4] voltar");
 		escolha = sc.nextInt();
 
 		switch (escolha) {
@@ -91,10 +91,8 @@ public class Biblioteca {
 				System.out.println("voce escolheu Funcionario");
 				Funcionario.cadastroFuncionario(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
 				break;
-			/// case 2:
-			/// System.out.println("Voce escolheu Professor");
-			/// break;
-			case 3:
+
+			case 2:
 				System.out.println("Voce escolheu Aluno");
 				Aluno.cadastroAluno(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
 				break;

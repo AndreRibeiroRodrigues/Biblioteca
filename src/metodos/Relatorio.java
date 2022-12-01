@@ -1,7 +1,5 @@
 package metodos;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,59 +10,18 @@ import entities.ItensEmprestimo;
 import entities.Livro;
 
 public class Relatorio {
-	private static final String path = "C:\\GitHub\\Biblioteca\\CSV";
 	static Scanner sc = new Scanner(System.in);
 
 	public void Relat(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
 			List<Funcionario> funcionarios,
 			List<Aluno> alunos, List<Emprestimo> emprestimos) {
 
+	
+			System.out.println("Total de Livros: " + livros.size());
+			System.out.println("Total de Emprestimos: " + emprestimos.size());
+			System.out.println("Total de Funcionarios: " + funcionarios.size());
+			System.out.println("Total de Alunos: " + alunos.size());
 		// relatório de cadastro BY total
-		try {
-			BufferedReader Livro = new BufferedReader(new FileReader(path + "\\Livros.csv"));
-			BufferedReader Funcionario = new BufferedReader(
-					new FileReader(path + "\\Funcionarios.csv"));
-			BufferedReader Alunos = new BufferedReader(new FileReader(path + "\\Alunos.csv"));
-			BufferedReader Emprestimos = new BufferedReader(
-					new FileReader(path + "\\Emprestimos.csv"));
-
-			int totalLivros = 0;
-			int totalEmprestimos = 0;
-			int totalAlunos = 0;
-			int totalFuncionario = 0;
-			totalLivros = -1;
-			while (Livro.readLine() != null) {
-				totalLivros++;
-			}
-
-			Livro.close();
-			totalEmprestimos = -1;
-			while (Emprestimos.readLine() != null) {
-				totalEmprestimos++;
-
-			}
-			Emprestimos.close();
-			totalAlunos = -1;
-			while (Alunos.readLine() != null) {
-				totalAlunos++;
-			}
-			Alunos.close();
-totalFuncionario = -1;
-			while (Funcionario.readLine() != null) {
-				totalFuncionario++;
-			}
-			Funcionario.close();
-
-			System.out.println("Total de Livros: " + totalLivros);
-			System.out.println("Total de Emprestimos: " + totalEmprestimos);
-			System.out.println("Total de Funcionarios: " + totalFuncionario);
-			System.out.println("Total de Alunos: " + totalAlunos);
-
-		} catch (Exception e) {
-			System.out.println("ERROR:" + e.getMessage());
-		}
-		// relatório de cadastro BY total
-
 		System.out.println("Deseja ver o relatorio de multas?");
 		System.out.println("Digite [S] SIM ou [N] Nao");
 		String es = sc.next();

@@ -129,8 +129,8 @@ public class Aluno {
             }
 
         } while (es.equalsIgnoreCase("s"));
-        sc.close();
         Biblioteca.inicio(funcionarios, itensEmprestimos, livros, emprestimos, alunos);
+        sc.close();
     }
 
     public int getMatricula() {

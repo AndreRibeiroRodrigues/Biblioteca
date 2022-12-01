@@ -31,15 +31,15 @@ public class ItensEmprestimo {
         try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\ItensEmprestimos.csv"))) {
             String line = lineReader.readLine();
             while (line != null) {
-                line = lineReader.readLine();
                 if (line == null || line.isEmpty()) {
                     break;
                 }
                 String[] vect = line.replaceAll("\"", "").split(";");
                 ItensEmprestimo aluno = new ItensEmprestimo(Integer.parseInt(vect[0]), Integer.parseInt(vect[1]),
-                        Integer.parseInt(vect[2]), vect[3]);
+                Integer.parseInt(vect[2]), vect[3]);
                 ItensEmprestimos.add(aluno);
-
+                line = lineReader.readLine();
+                
             }
             return ItensEmprestimos;
         }

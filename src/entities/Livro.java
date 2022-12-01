@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 import metodos.Biblioteca;
@@ -36,7 +35,6 @@ public class Livro {
 	}
 
 	public Livro() {
-		this.setCodigo();
 	}
 
 	public List<Livro> valores() throws FileNotFoundException, IOException {
@@ -46,14 +44,14 @@ public class Livro {
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Livros.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
-				line = lineReader.readLine();
 				if (line == null || line.isEmpty()) {
 					break;
 				}
 				String[] vect = line.replaceAll("\"", "").split(";");
 				Livro Livro = new Livro(Integer.parseInt(vect[0]), vect[1].charAt(0), vect[2], vect[3], vect[4],
-						vect[5], vect[6], Integer.parseInt(vect[7]));
+				vect[5], vect[6], Integer.parseInt(vect[7]));
 				Livros.add(Livro);
+				line = lineReader.readLine();
 
 			}
 			return Livros;
@@ -98,6 +96,9 @@ public class Livro {
 
 		System.out.println("Voce iniciou o cadastro de item");
 		do {
+			System.out.println("Digite o codigo do livro");
+			this.setCodigo(sc.nextInt());
+
 			System.out.println("Digite o nome do autor:");
 			this.setAutor(sc.nextLine());
 
@@ -106,6 +107,7 @@ public class Livro {
 
 			System.out.println("Digite a editora:");
 			this.setEditora(sc.nextLine());
+
 			System.out.println("Digite o fator de impacto:");
 			this.setFatorImpacto(sc.nextLine());
 
@@ -143,9 +145,9 @@ public class Livro {
 		return codigo;
 	}
 
-	public void setCodigo() {
-		Random cod = new Random();
-		this.codigo = cod.nextInt(10000000, 99999999);
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public char getTipo() {
@@ -207,7 +209,9 @@ public class Livro {
 	@Override
 	public String toString() {
 		return codigo + ";" + tipo + ";" + autor + ";" + titulo
-				+ ";" + issn + ";" + editora + ";" + anoPublicacao;
+				+ ";" + issn + ";" + fatorImpacto + ";" + editora + ";" + anoPublicacao;
 	}
+
+	
 
 }

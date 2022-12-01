@@ -37,15 +37,15 @@ public class Emprestimo {
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Emprestimos.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
-				line = lineReader.readLine();
 				if (line == null || line.isEmpty()) {
 					break;
 				}
 				String[] vect = line.replaceAll("\"", "").split(";");
 				Emprestimo Emprestimo = new Emprestimo(Integer.parseInt(vect[0]), Integer.parseInt(vect[1]),
-						Integer.parseInt(vect[2]), vect[3], vect[4]);
+				Integer.parseInt(vect[2]), vect[3], vect[4]);
 				Emprestimos.add(Emprestimo);
-
+				line = lineReader.readLine();
+				
 			}
 			return Emprestimos;
 		}
