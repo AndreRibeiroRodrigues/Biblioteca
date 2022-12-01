@@ -61,7 +61,7 @@ public class Livro {
 	}
 
 	public void persisteDados(List<Livro> livros) {
-		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+		var path = "C:\\GitHub\\Biblioteca\\CSV";
 
 		try {
 			FileWriter local = new FileWriter(path + "\\Livros.csv");
@@ -76,6 +76,15 @@ public class Livro {
 		} catch (IOException e) {
 			System.out.println("ERROR: " + e.getMessage());
 		}
+	}
+	
+	public Livro getLivroCode(List<Livro> livros, String nomeLivroString) {
+		for (int i = 0; i < livros.size(); i++) {
+			if (livros.get(i).getTitulo() == nomeLivroString)
+				return livros.get(i);
+		}
+
+		return null;
 	}
 
 	// Código,Nome,Titulo,Editora,fatorimpacto,Tipo,AnoPublicação,issn
@@ -128,14 +137,6 @@ public class Livro {
 		sc.close();
 	}
 
-	public Livro getLivro(List<Livro> livros, int codigo) {
-		for (int i = 0; i < livros.size(); i++) {
-			if (livros.get(i).getCodigo() == codigo)
-				return livros.get(i);
-		}
-
-		return null;
-	}
 
 	public int getCodigo() {
 		return codigo;

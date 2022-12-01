@@ -29,32 +29,31 @@ public class Alunos {
     public Alunos() {
     }
 
-    public List<Alunos> valores() throws FileNotFoundException, IOException {
+    public void valores(List<Alunos> alunos) throws FileNotFoundException, IOException {
         var path = "C:\\GitHub\\Biblioteca\\CSV";
 
-        List<Alunos> alunos = new ArrayList<>();
-        try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Aluno.csv"))) {
+       
+        try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Alunos.csv"))) {
             String line = lineReader.readLine();
             while (line != null) {
                 line = lineReader.readLine();
                 if (line == null || line.isEmpty()) {
                     break;
                 }
-                String[] vect = line.replaceAll("\"", "").split(";");
+                String[] vect = line.replaceAll("\"", "").split(",");
                 Alunos aluno = new Alunos(Integer.parseInt(vect[0]), vect[1], vect[2], vect[3], vect[4],
                         Double.parseDouble(vect[5]));
                 alunos.add(aluno);
 
             }
-            return alunos;
         }
     }
 
     public void persisteDados(List<Alunos> alunos) {
-        var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+        var path = "C:\\GitHub\\Biblioteca\\CSV";
 
         try {
-            FileWriter local = new FileWriter(path + "\\Aluno.csv");
+            FileWriter local = new FileWriter(path + "\\Alunos.csv");
             PrintWriter pw = new PrintWriter(local);
 
             for (int i = 0; i < alunos.size(); i++) {
@@ -130,10 +129,10 @@ public class Alunos {
                 System.out.println("Digite novamente");
                 es = sc.next();
             }
-            sc.close();
+            
         } while (es.equalsIgnoreCase("s"));
+        sc.close();
         Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
-
     }
 
     public int getMatricula() {

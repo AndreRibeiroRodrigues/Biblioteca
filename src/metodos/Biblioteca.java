@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +31,9 @@ public class Biblioteca {
 	static Funcionario fu = new Funcionario();
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		List<Alunos> alunos = al.valores();
+		
+		List<Alunos> alunos = new ArrayList<Alunos>();
+		al.valores(alunos);
 		List<Emprestimo> emprestimos = em.valores();
 		List<Livro> livros = li.valores();
 		List<ItensEmprestimo> ItensEmprestimos = ie.valores();
@@ -71,6 +74,7 @@ public class Biblioteca {
 				al.persisteDados(alunos);
 				li.persisteDados(livros);
 				fu.persisteDados(funcionarios);
+				em.persisteDados(emprestimos);
 				break;
 		}
 	}

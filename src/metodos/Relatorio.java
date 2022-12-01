@@ -24,32 +24,32 @@ public class Relatorio {
 			BufferedReader Livro = new BufferedReader(new FileReader(path + "\\Livros.csv"));
 			BufferedReader Funcionario = new BufferedReader(
 					new FileReader(path + "\\Funcionarios.csv"));
-			BufferedReader Alunos = new BufferedReader(new FileReader(path + "\\Aluno.csv"));
+			BufferedReader Alunos = new BufferedReader(new FileReader(path + "\\Alunos.csv"));
 			BufferedReader Emprestimos = new BufferedReader(
-					new FileReader(path + "\\Emprestimo.csv"));
+					new FileReader(path + "\\Emprestimos.csv"));
 
 			int totalLivros = 0;
 			int totalEmprestimos = 0;
 			int totalAlunos = 0;
 			int totalFuncionario = 0;
-
+			totalLivros = -1;
 			while (Livro.readLine() != null) {
 				totalLivros++;
 			}
 
 			Livro.close();
-
+			totalEmprestimos = -1;
 			while (Emprestimos.readLine() != null) {
 				totalEmprestimos++;
 
 			}
 			Emprestimos.close();
-
+			totalAlunos = -1;
 			while (Alunos.readLine() != null) {
 				totalAlunos++;
 			}
 			Alunos.close();
-
+totalFuncionario = -1;
 			while (Funcionario.readLine() != null) {
 				totalFuncionario++;
 			}
@@ -65,21 +65,33 @@ public class Relatorio {
 		}
 		// relatório de cadastro BY total
 
-		System.out.println("Deseja ver o rela´torio de multas?");
+		System.out.println("Deseja ver o relatorio de multas?");
 		System.out.println("Digite [S] SIM ou [N] Nao");
-		String es = sc.next().toUpperCase();
-		while (!es.equalsIgnoreCase("S") || !es.equalsIgnoreCase("N") && es.length() > 1) {
+		String es = sc.next();
+		while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
 			System.out.println("Valor invalido \nDigite Novamente");
 			es = sc.next();
 		}
-		if (es.equalsIgnoreCase("s")) {
+		do {
+
 			System.out.println("Qual aluno voce deseja ver:");
 			String aluno = sc.nextLine();
-			System.out.println("o aluno "+ PorAluno(alunos, aluno).getNome() + " tem uma multa de " + "R$ "+PorAluno(alunos, aluno).getMulta());
+			if (PorAluno(alunos, aluno) != null) {
+				System.out.println("o aluno " + PorAluno(alunos, aluno).getNome() + " tem uma multa de " + "R$ "
+						+ PorAluno(alunos, aluno).getMulta());
+			}else{
+				System.out.println("Aluno não encontrado");
+			}
 
-		} else {
-			Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
-		}
+			System.out.println("Deseja ver a multa de outro aluno?");
+			System.out.println("Digite [S] SIM ou [N] Nao");
+			es = sc.next();
+			while (!es.equalsIgnoreCase("s") && !es.equalsIgnoreCase("n")) {
+				System.out.println("Valor invalido \nDigite Novamente");
+			}
+		} while (es.equalsIgnoreCase("s"));
+		Biblioteca.inicio(livros, itensEmprestimos, funcionarios, alunos, emprestimos);
+
 		sc.close();
 	}
 

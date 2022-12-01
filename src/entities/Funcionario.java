@@ -53,7 +53,7 @@ public class Funcionario {
 	}
 
 	public void persisteDados(List<Funcionario> funcionarios) {
-		var path = "C:\\GitHub\\Biblioteca-main\\CSV";
+		var path = "C:\\GitHub\\Biblioteca\\CSV";
 		try {
 			FileWriter local = new FileWriter(path + "\\Funcionarios.csv");
 			PrintWriter pw = new PrintWriter(local);

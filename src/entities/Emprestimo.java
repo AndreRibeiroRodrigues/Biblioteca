@@ -3,7 +3,9 @@ package entities;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,7 +34,7 @@ public class Emprestimo {
 	public List<Emprestimo> valores() throws FileNotFoundException, IOException {
 		var path = "C:\\GitHub\\Biblioteca\\CSV";
 		List<Emprestimo> Emprestimos = new ArrayList<>();
-		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Emprestimo.csv"))) {
+		try (BufferedReader lineReader = new BufferedReader(new FileReader(path + "\\Emprestimos.csv"))) {
 			String line = lineReader.readLine();
 			while (line != null) {
 				line = lineReader.readLine();
@@ -49,36 +51,56 @@ public class Emprestimo {
 		}
 	}
 
+	public void persisteDados(List<Emprestimo> emprestimos) {
+		var path = "C:\\GitHub\\Biblioteca\\CSV";
+
+		try {
+			FileWriter local = new FileWriter(path + "\\emprestimos.csv");
+			PrintWriter pw = new PrintWriter(local);
+
+			for (int i = 0; i < emprestimos.size(); i++) {
+				pw.println(emprestimos.get(i).toString());
+				pw.flush();
+			}
+
+			pw.close();
+		} catch (IOException e) {
+			System.out.println("ERROR: " + e.getMessage());
+		}
+	}
+
 	// código,matrícula-cliente,matrícula-funcionário,dataempréstimo,data-devolução
 	public void Emprestar(List<Livro> livros, List<ItensEmprestimo> itensEmprestimos,
 			List<Funcionario> funcionarios,
 			List<Alunos> alunos, List<Emprestimo> emprestimos) {
 
 		Scanner sc = new Scanner(System.in);
-		int es;
 
 		Emprestimo emprestimo = new Emprestimo();
+		
 		System.out.println("Emprestimo ");
 		emprestimo.setCodigoCliente(sc.nextInt());
+
+	
 		System.out.println("funcionario");
 		emprestimo.setCodigoFuncionario(sc.nextInt());
-
-		do {
-			System.out.println("Livro ");
-			int codigoLivro = sc.nextInt();
-
-			ItensEmprestimo itensEmprestimo = new ItensEmprestimo();
-			itensEmprestimo.setCodigoemprestimo(emprestimo.getCodigo());
-			itensEmprestimo.setCodigolivro(codigoLivro);
-			itensEmprestimos.add(itensEmprestimo);
-
-			System.out.println("deseja emprestar mains um item?");
-			System.out.println("1 para sair e 2 para escolher mais um livro");
-			es = sc.nextInt();
-		} while (es != 1);
+		
 		System.out.println("dataEmprestimo ");
 		emprestimo.setDataEmprestimo(sc.next());
+	
+		System.out.println("Livro ");
+		sc.nextLine();
+		String nomeLivroString = sc.nextLine();
+
+			ItensEmprestimo itensEmprestimo = new ItensEmprestimo();
+			Livro liv =new Livro();
+			itensEmprestimo.setCodigoemprestimo(emprestimo.getCodigo());
+
+			itensEmprestimo.setCodigolivro(liv.getLivroCode(livros,nomeLivroString).getCodigo());
+			itensEmprestimos.add(itensEmprestimo);
+
 		emprestimos.add(emprestimo);
+		itensEmprestimos.add(itensEmprestimo);
 		sc.close();
 	}
 
